@@ -5,15 +5,15 @@ import com.tanksDevs.system.entity.Genre;
 public interface EntityPojo {
 
     int getId();
-    int getX();
-    int getY();
-    int getSize();
+    double getX();
+    double getY();
+    double getSize();
     Genre getGenre();
 
     void setId(int id);
-    void setX(int X);
-    void setY(int Y);
-    void setSize(int size);
+    void setX(double X);
+    void setY(double Y);
+    void setSize(double size);
     void setGenre(Genre genre);
 
 }

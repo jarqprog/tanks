@@ -36,4 +36,10 @@ public abstract class AbstractEntity implements Entity {
     public double getSize() {
         return size;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() +
+                "id=" + id + " " + getGenre().toString();
+    }
 }

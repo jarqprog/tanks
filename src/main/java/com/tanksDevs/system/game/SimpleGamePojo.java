@@ -15,7 +15,7 @@ public class SimpleGamePojo implements GamePojo {
 
 //
 //    Board getBoard();
-//    Set<Colliding> getColliding();
+//    Set<Colliding> getCollidings();
 //    Set<Player> getPlayers();
 //    Set<Tank> getTanks();
 //    boolean markPlayerTank(Tank tank);

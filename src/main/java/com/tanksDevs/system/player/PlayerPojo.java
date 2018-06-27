@@ -11,4 +11,5 @@ public interface PlayerPojo {
     void setName(String name);
     boolean isReady();
     void setReady(boolean ready);
+
 }

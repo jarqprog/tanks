@@ -10,10 +10,12 @@ import java.util.Set;
 public interface Game {
 
     Board getBoard();
-    Set<Colliding> getColliding();
+    Set<Colliding> getCollidings();
     Set<Tank> getTanks();
     boolean markPlayerTank(Tank tank);
     boolean registerPlayer(Player player);
+    void setTanks(Set<Tank> tanks);
+    void setCollidings(Set<Colliding> collidings);
     // todo potrzeba wymyślić co z bazą!
 
 }
