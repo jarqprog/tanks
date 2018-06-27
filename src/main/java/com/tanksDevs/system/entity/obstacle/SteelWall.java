@@ -18,7 +18,7 @@ public class SteelWall extends AbstractEntity implements Colliding {
     }
 
     @Override
-    public boolean isCollision(Colliding other) { //Todo implement collision
+    public boolean isCollision(Colliding other) {
         return hitBox.checkCollision(other.getHitBox());
     }
 
