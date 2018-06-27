@@ -4,5 +4,9 @@ import com.tanksDevs.system.entity.Destructible;
 import com.tanksDevs.system.entity.Moveable;
 
 public interface Tank extends Moveable, Destructible {
+
     int cooldown();
+    boolean hasPlayer();
+    void markAsOccupied();
+
 }

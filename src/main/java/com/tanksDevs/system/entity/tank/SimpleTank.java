@@ -55,4 +55,14 @@ public class SimpleTank extends AbstractEntity implements Tank {
     public int cooldown() {
         return 0;
     }
+
+    @Override
+    public boolean hasPlayer() {
+        return false;
+    }
+
+    @Override
+    public void markAsOccupied() {
+
+    }
 }

@@ -10,8 +10,8 @@ public class User implements Player{
 
     public User(String name) { // Todo creating tanks
         this.name = name;
-        score = 0;
-        isReady = false;
+        this.score = 0;
+        this.isReady = false;
     }
 
     @Override
@@ -48,4 +48,6 @@ public class User implements Player{
     public void setReady(boolean ready) {
         isReady = ready;
     }
+
+
 }
