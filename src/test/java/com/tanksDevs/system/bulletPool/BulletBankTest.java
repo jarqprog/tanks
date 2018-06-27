@@ -1,7 +1,10 @@
 package com.tanksDevs.system.bulletPool;
 
+import com.tanksDevs.system.entity.Colliding;
+import com.tanksDevs.system.entity.Destructible;
+import com.tanksDevs.system.entity.Direction;
 import com.tanksDevs.system.entity.bullet.Bullet;
-import com.tanksDevs.system.entity.bullet.SimpleBullet;
+import com.tanksDevs.system.entity.hitBox.HitBox;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,9 +19,9 @@ public class BulletBankTest {
 
     @Before
     public void setup() {
+        Bullet[] fakes = getFakeBullets();
 
-        Collection<Bullet> bullets = Arrays.asList(new Bullet[] {new SimpleBullet(), new SimpleBullet(),
-                new SimpleBullet()});
+        Collection<Bullet> bullets = Arrays.asList(fakes);
 
         pool = new BulletBank(bullets);
     }
@@ -89,6 +92,59 @@ public class BulletBankTest {
 
         assertEquals(expected, pool.available());
 
+    }
+
+
+    private Bullet[] getFakeBullets() {
+        Bullet fake = new Bullet() {
+
+            @Override
+            public void destroy(Destructible target) {
+
+            }
+
+            @Override
+            public int getHp() {
+                return 0;
+            }
+
+            @Override
+            public void decrementHp(int hitPoints) {
+
+            }
+
+            @Override
+            public boolean isDestroyed() {
+                return false;
+            }
+
+            @Override
+            public int getSpeed() {
+                return 0;
+            }
+
+            @Override
+            public void move(Direction direction) {
+
+            }
+
+            @Override
+            public void stop() {
+
+            }
+
+            @Override
+            public boolean isCollision(Colliding other) {
+                return false;
+            }
+
+            @Override
+            public HitBox getHitBox() {
+                return null;
+            }
+        };
+
+        return new Bullet[] {fake, fake, fake};
     }
 
 
