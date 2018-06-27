@@ -1,12 +1,15 @@
 package com.tanksDevs.system.entity.tank;
 
+import com.tanksDevs.system.entity.AbstractEntity;
 import com.tanksDevs.system.entity.Colliding;
 import com.tanksDevs.system.entity.Direction;
-import com.tanksDevs.system.entity.TankBase;
 import com.tanksDevs.system.entity.hitBox.HitBox;
 
-public class SimpleTank implements Tank {
+public class SimpleTank extends AbstractEntity implements Tank {
 
+    public SimpleTank(int id, int x, int y, int size) {
+        super(id, x, y, size);
+    }
 
     @Override
     public int getSpeed() {
@@ -64,7 +67,7 @@ public class SimpleTank implements Tank {
     }
 
     @Override
-    public TankBase getBase() {
-        return null;
+    public int cooldown() {
+        return 0;
     }
 }
