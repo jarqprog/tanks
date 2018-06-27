@@ -1,6 +1,6 @@
 package com.tanksDevs.system.entity;
 
-public abstract class AbstractEntity implements Entity{
+public abstract class AbstractEntity implements Entity {
     private int id;
     private double x;
     private double y;

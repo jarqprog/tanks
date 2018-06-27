@@ -1,6 +1,5 @@
-package com.tanksDevs.system.pojo;
+package com.tanksDevs.network.states;
 
-import com.tanksDevs.network.states.LocalState;
 import com.tanksDevs.network.input.UserInput;
 
 public class TankState implements LocalState {
@@ -12,12 +11,12 @@ public class TankState implements LocalState {
 
     @Override
     public UserInput getUserInput() {
-        return null;
+        return userInput;
     }
 
     @Override
     public int getTankId() {
-        return 0;
+        return tankId;
     }
 
     @Override
@@ -29,5 +28,4 @@ public class TankState implements LocalState {
     public void setTankId(int tankId) {
         this.tankId = tankId;
     }
-
 }

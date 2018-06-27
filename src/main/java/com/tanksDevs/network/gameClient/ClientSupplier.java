@@ -1,8 +1,9 @@
-package com.tanksDevs.network.gameClient.kryoClient;
+package com.tanksDevs.network.gameClient;
 
 import com.tanksDevs.network.gameServer.GameServer;
 import com.tanksDevs.network.gameClient.InOut.ClientIn;
 import com.tanksDevs.network.gameClient.InOut.ClientOut;
+import com.tanksDevs.network.parser.PojoParser;
 import com.tanksDevs.system.player.Player;
 
 public interface ClientSupplier {
@@ -16,5 +17,6 @@ public interface ClientSupplier {
     String getIpAddress();
     int getPortTCP();
     int getPortUDP();
+    PojoParser getParser();
 
 }
