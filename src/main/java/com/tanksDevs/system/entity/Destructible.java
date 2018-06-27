@@ -1,6 +1,6 @@
 package com.tanksDevs.system.entity;
 
-public interface Destructible extends Entity {
+public interface Destructible{
 
     int getHp();
     void decrementHp(int hitPoints);
