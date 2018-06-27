@@ -2,7 +2,8 @@ package com.tanksDevs.system.entity;
 
 public interface Moveable extends Colliding {
 
-    int getSpeed();
+    double getSpeed();
+    Direction getDirection();
     void move(Direction direction);
     void stop();
 

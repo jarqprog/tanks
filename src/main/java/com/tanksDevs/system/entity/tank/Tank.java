@@ -6,6 +6,4 @@ import com.tanksDevs.system.entity.TankBase;
 
 public interface Tank extends Moveable, Destructible {
 
-    TankBase getBase();
-
 }

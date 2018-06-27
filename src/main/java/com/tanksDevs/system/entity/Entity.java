@@ -3,7 +3,7 @@ package com.tanksDevs.system.entity;
 public interface Entity {
 
     int getId();
-    int getX();
-    int getY();
+    double getX();
+    double getY();
 
 }
