@@ -15,4 +15,5 @@ public class BrickWallPojo extends AbstractEntityPojo implements DestroyableWall
     public void setHp(int hp) {
         this.hp = hp;
     }
+
 }
