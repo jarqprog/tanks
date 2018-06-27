@@ -3,12 +3,19 @@ package com.tanksDevs.system.entity.tank;
 import com.tanksDevs.system.entity.AbstractEntity;
 import com.tanksDevs.system.entity.Colliding;
 import com.tanksDevs.system.entity.Direction;
+import com.tanksDevs.system.entity.Genre;
+import com.tanksDevs.system.entity.hitBox.BasicHitBox;
 import com.tanksDevs.system.entity.hitBox.HitBox;
 
 public class SimpleTank extends AbstractEntity implements Tank {
 
-    public SimpleTank(int id, int x, int y, int size) {
+    private HitBox hitBox;
+    private final Genre genre;
+
+    public SimpleTank(int id, double x, double y, double size) {
         super(id, x, y, size);
+        this.hitBox = new BasicHitBox(x, y, size);
+        this.genre = Genre.TANK;
     }
 
     @Override
@@ -28,12 +35,12 @@ public class SimpleTank extends AbstractEntity implements Tank {
 
     @Override
     public boolean isCollision(Colliding other) {
-        return false;
+        return hitBox.checkCollision(other.getHitBox());
     }
 
     @Override
     public HitBox getHitBox() {
-        return null;
+        return hitBox;
     }
 
     @Override
@@ -64,5 +71,10 @@ public class SimpleTank extends AbstractEntity implements Tank {
     @Override
     public void markAsOccupied() {
 
+    }
+
+    @Override
+    public Genre getGenre() {
+        return genre;
     }
 }

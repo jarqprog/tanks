@@ -2,15 +2,15 @@ package com.tanksDevs.system.entity;
 
 public abstract class AbstractEntity implements Entity {
     private int id;
-    private int x;
-    private int y;
-    private int size;
+    private double x;
+    private double y;
+    private double size;
 
     public AbstractEntity(int id) {
         this.id = id;
     }
 
-    public AbstractEntity(int id, int x, int y, int size) {
+    public AbstractEntity(int id, double x, double y, double size) {
         this.id = id;
         this.x = x;
         this.y = y;
@@ -23,17 +23,17 @@ public abstract class AbstractEntity implements Entity {
     }
 
     @Override
-    public int getX() {
+    public double getX() {
         return x;
     }
 
     @Override
-    public int getY() {
+    public double getY() {
         return y;
     }
 
     @Override
-    public int getSize() {
+    public double getSize() {
         return size;
     }
 }
