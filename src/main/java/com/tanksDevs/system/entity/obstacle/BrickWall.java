@@ -20,7 +20,7 @@ public class BrickWall extends AbstractEntity implements DestroyableWall {
         this.hitBox = new BasicHitBox(x, y, size);
     }
 
-    public BrickWall(BrickWallPojo brickWallPojo){
+    public BrickWall(DestroyableWallPojo brickWallPojo){
         super(brickWallPojo.getId(), brickWallPojo.getX(), brickWallPojo.getY(), brickWallPojo.getSize());
         this.hp = brickWallPojo.getHp();
         this.destroyed = (brickWallPojo.getHp() <= 0);
