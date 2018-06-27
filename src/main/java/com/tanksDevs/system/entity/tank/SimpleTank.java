@@ -78,6 +78,6 @@ public class SimpleTank extends AbstractEntity implements Tank {
 
     @Override
     public void markAsOccupied() {
-        
+
     }
 }

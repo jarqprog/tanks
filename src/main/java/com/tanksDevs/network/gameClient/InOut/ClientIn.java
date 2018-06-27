@@ -1,7 +1,7 @@
 package com.tanksDevs.network.gameClient.InOut;
 
 import com.tanksDevs.system.game.Game;
-import com.tanksDevs.system.pojo.GlobalState;
+import com.tanksDevs.network.states.GlobalState;
 
 public interface ClientIn extends Runnable {
 
