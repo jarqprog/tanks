@@ -11,13 +11,18 @@ public class Eagle extends AbstractEntity implements TankBase {
     private int hp;
     private boolean destroyed;
     private HitBox hitBox;
-    private final Genre genre;
+    private final Genre genre = Genre.EAGLE;
 
     public Eagle(int id, double x, double y, double size) {
         super(id, x, y, size);
         this.hp = 10;
         this.hitBox = new BasicHitBox(x, y, size);
-        this.genre = Genre.EAGLE;
+    }
+
+    public Eagle(TankBasePojo tankBasePojo){
+        super(tankBasePojo.getId(), tankBasePojo.getX(), tankBasePojo.getY(), tankBasePojo.getSize());
+        this.hp = tankBasePojo.getHp();
+        this.hitBox = new BasicHitBox(tankBasePojo.getX(), tankBasePojo.getY(), tankBasePojo.getSize());
     }
 
     @Override
