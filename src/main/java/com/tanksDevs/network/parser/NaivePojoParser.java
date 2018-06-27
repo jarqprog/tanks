@@ -2,9 +2,18 @@ package com.tanksDevs.network.parser;
 
 import com.tanksDevs.system.entity.Entity;
 import com.tanksDevs.system.entity.Genre;
-import com.tanksDevs.system.entity.forest.Forest;
+import com.tanksDevs.system.entity.eagle.Eagle;
+import com.tanksDevs.system.entity.eagle.EaglePojo;
+import com.tanksDevs.system.entity.eagle.TankBase;
+import com.tanksDevs.system.entity.eagle.TankBasePojo;
+import com.tanksDevs.system.entity.forest.ForestPojo;
 import com.tanksDevs.system.entity.forest.SimpleForest;
 import com.tanksDevs.system.entity.forest.SimpleForestPojo;
+import com.tanksDevs.system.entity.obstacle.*;
+import com.tanksDevs.system.entity.tank.SimpleTank;
+import com.tanksDevs.system.entity.tank.SimpleTankPojo;
+import com.tanksDevs.system.entity.tank.Tank;
+import com.tanksDevs.system.entity.tank.TankPojo;
 import com.tanksDevs.system.game.Game;
 import com.tanksDevs.system.game.GamePojo;
 import com.tanksDevs.system.player.Player;
@@ -24,10 +33,21 @@ public class NaivePojoParser implements PojoParser {
 
         switch (genre) {
 
+            case EAGLE:
+                entity = (T) new Eagle((TankBasePojo) pojo);
+                break;
             case FOREST:
                 entity = (T) new SimpleForest( (SimpleForestPojo) pojo);
                 break;
-
+            case TANK:
+                entity = (T) new SimpleTank( (SimpleTankPojo) pojo);
+                break;
+            case BRICKWALL:
+                entity = (T) new BrickWall( (DestroyableWallPojo) pojo);
+                break;
+            case STEELWALL:
+                entity = (T) new SteelWall((SolidWallPojo) pojo);
+                break;
             default:
                 break;
         }
