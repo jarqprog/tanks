@@ -1,16 +1,14 @@
 package com.tanksDevs.system.entity.bullet;
 
-import com.tanksDevs.system.entity.AbstractEntity;
-import com.tanksDevs.system.entity.Colliding;
-import com.tanksDevs.system.entity.Destructible;
-import com.tanksDevs.system.entity.Direction;
+import com.tanksDevs.system.entity.*;
 import com.tanksDevs.system.entity.hitBox.HitBox;
 
 public class SimpleBullet extends AbstractEntity implements Bullet {
 
-
+    private final Genre genre;
     public SimpleBullet(int id) {
         super(id);
+        this.genre = Genre.BULLET;
     }
 
     @Override
@@ -49,6 +47,11 @@ public class SimpleBullet extends AbstractEntity implements Bullet {
     }
 
     @Override
+    public Genre getGenre() {
+        return genre;
+    }
+
+    @Override
     public int getSpeed() {
         return 0;
     }
@@ -72,4 +75,5 @@ public class SimpleBullet extends AbstractEntity implements Bullet {
     public HitBox getHitBox() {
         return null;
     }
+
 }

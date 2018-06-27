@@ -2,16 +2,19 @@ package com.tanksDevs.system.entity.eagle;
 
 import com.tanksDevs.system.entity.AbstractEntity;
 import com.tanksDevs.system.entity.Colliding;
+import com.tanksDevs.system.entity.Genre;
 import com.tanksDevs.system.entity.hitBox.HitBox;
 
 public class Eagle extends AbstractEntity implements TankBase {
 
     private int hp;
-    boolean destroyed;
+    private boolean destroyed;
+    private final Genre genre;
 
     public Eagle(int id, int x, int y, int size) {
         super(id, x, y, size);
-        hp = 10;
+        this.hp = 10;
+        this.genre = Genre.EAGLE;
     }
 
     @Override
@@ -40,5 +43,10 @@ public class Eagle extends AbstractEntity implements TankBase {
     @Override
     public boolean isDestroyed() {
         return destroyed;
+    }
+
+    @Override
+    public Genre getGenre() {
+        return genre;
     }
 }

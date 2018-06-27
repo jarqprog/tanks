@@ -6,4 +6,5 @@ public interface Entity {
     int getX();
     int getY();
     int getSize();
+    Genre getGenre();
 }
