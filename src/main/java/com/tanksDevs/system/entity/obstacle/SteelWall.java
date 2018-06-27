@@ -6,7 +6,7 @@ import com.tanksDevs.system.entity.Genre;
 import com.tanksDevs.system.entity.hitBox.BasicHitBox;
 import com.tanksDevs.system.entity.hitBox.HitBox;
 
-public class SteelWall extends AbstractEntity implements Colliding {
+public class SteelWall extends AbstractEntity implements SolidWall {
 
     private HitBox hitBox;
     private final Genre genre;

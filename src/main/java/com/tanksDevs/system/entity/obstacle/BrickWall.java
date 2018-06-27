@@ -2,12 +2,11 @@ package com.tanksDevs.system.entity.obstacle;
 
 import com.tanksDevs.system.entity.AbstractEntity;
 import com.tanksDevs.system.entity.Colliding;
-import com.tanksDevs.system.entity.Destructible;
 import com.tanksDevs.system.entity.Genre;
 import com.tanksDevs.system.entity.hitBox.BasicHitBox;
 import com.tanksDevs.system.entity.hitBox.HitBox;
 
-public class BrickWall extends AbstractEntity implements Destructible, Colliding {
+public class BrickWall extends AbstractEntity implements DestroyableWall {
 
     private int hp;
     private boolean destroyed;
