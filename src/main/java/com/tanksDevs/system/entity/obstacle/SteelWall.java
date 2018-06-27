@@ -9,12 +9,16 @@ import com.tanksDevs.system.entity.hitBox.HitBox;
 public class SteelWall extends AbstractEntity implements SolidWall {
 
     private HitBox hitBox;
-    private final Genre genre;
+    private final Genre genre = Genre.STEELWALL;
 
     public SteelWall(int id, double x, double y, double size) {
         super(id, x, y, size);
         this.hitBox = new BasicHitBox(x, y, size);
-        this.genre = Genre.STEELWALL;
+    }
+
+    public SteelWall(SolidWallPojo solidWallPojo){
+        super(solidWallPojo.getId(), solidWallPojo.getX(), solidWallPojo.getY(), solidWallPojo.getSize());
+        this.hitBox = new BasicHitBox(solidWallPojo.getX(), solidWallPojo.getY(), solidWallPojo.getSize());
     }
 
     @Override
