@@ -58,7 +58,63 @@ public class NaivePojoParser implements PojoParser {
 
     @Override
     public <T extends Entity, P extends EntityPojo> P parse(T entity) {
-        return null;
+        Genre genre = entity.getGenre();
+        P pojo = null;
+
+        switch (genre){
+            case EAGLE:
+                TankBasePojo tankBasePojo = new EaglePojo();
+                TankBase tankBase = (Eagle)entity;
+                tankBasePojo.setId(entity.getId());
+                tankBasePojo.setX(entity.getX());
+                tankBasePojo.setY(entity.getY());
+                tankBasePojo.setSize(entity.getSize());
+                tankBasePojo.setHp(tankBase.getHp());
+                tankBasePojo.setGenre(entity.getGenre());
+                pojo = (P) tankBasePojo;
+                break;
+            case FOREST:
+                ForestPojo forestPojo = new SimpleForestPojo();
+                forestPojo.setId(entity.getId());
+                forestPojo.setX(entity.getX());
+                forestPojo.setY(entity.getY());
+                forestPojo.setSize(entity.getSize());
+                forestPojo.setGenre(entity.getGenre());
+                pojo = (P) forestPojo;
+                break;
+            case TANK:
+                TankPojo tankPojo = new SimpleTankPojo();
+                Tank tank = (SimpleTank) entity;
+                tankPojo.setId(entity.getId());
+                tankPojo.setX(entity.getX());
+                tankPojo.setY(entity.getY());
+                tankPojo.setSize(entity.getSize());
+                tankPojo.setHp(tank.getHp());
+                tankPojo.setGenre(entity.getGenre());
+                pojo = (P) tankPojo;
+                break;
+            case BRICKWALL:
+                DestroyableWallPojo destroyableWallPojo = new BrickWallPojo();
+                DestroyableWall destroyableWall = (BrickWall) entity;
+                destroyableWallPojo.setId(entity.getId());
+                destroyableWallPojo.setX(entity.getX());
+                destroyableWallPojo.setY(entity.getY());
+                destroyableWallPojo.setSize(entity.getSize());
+                destroyableWallPojo.setHp(destroyableWall.getHp());
+                destroyableWallPojo.setGenre(entity.getGenre());
+                pojo = (P) destroyableWallPojo;
+                break;
+            case STEELWALL:
+                SolidWallPojo solidWallPojo = new SteelWallPojo();
+                solidWallPojo.setId(entity.getId());
+                solidWallPojo.setX(entity.getX());
+                solidWallPojo.setY(entity.getY());
+                solidWallPojo.setSize(entity.getSize());
+                solidWallPojo.setGenre(entity.getGenre());
+                pojo = (P) solidWallPojo;
+                break;
+        }
+        return pojo;
     }
 
     @Override
