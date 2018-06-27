@@ -1,11 +1,14 @@
 package com.tanksDevs.system.pojo;
 
+import com.tanksDevs.system.entity.Genre;
+
 public abstract class AbstractEntityPojo implements EntityPojo {
 
     private int id;
     private int X;
     private int Y;
     private int size;
+    private Genre genre;
 
     @Override
     public int getId() {
@@ -45,5 +48,15 @@ public abstract class AbstractEntityPojo implements EntityPojo {
     @Override
     public void setSize(int size) {
         this.size = size;
+    }
+
+    @Override
+    public Genre getGenre() {
+        return genre;
+    }
+
+    @Override
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
 }
