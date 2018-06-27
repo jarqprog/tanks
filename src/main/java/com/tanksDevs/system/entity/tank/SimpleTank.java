@@ -7,10 +7,29 @@ import com.tanksDevs.system.entity.hitBox.HitBox;
 
 public class SimpleTank implements Tank {
 
+    @Override
+    public int getHp() {
+        return 0;
+    }
 
     @Override
-    public int getSpeed() {
+    public void decrementHp(int hitPoints) {
+
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        return false;
+    }
+
+    @Override
+    public double getSpeed() {
         return 0;
+    }
+
+    @Override
+    public Direction getDirection() {
+        return null;
     }
 
     @Override
@@ -34,37 +53,17 @@ public class SimpleTank implements Tank {
     }
 
     @Override
-    public int getHp() {
-        return 0;
-    }
-
-    @Override
-    public void decrementHp(int hitPoints) {
-
-    }
-
-    @Override
-    public boolean isDestroyed() {
-        return false;
-    }
-
-    @Override
     public int getId() {
         return 0;
     }
 
     @Override
-    public int getX() {
+    public double getX() {
         return 0;
     }
 
     @Override
-    public int getY() {
+    public double getY() {
         return 0;
-    }
-
-    @Override
-    public TankBase getBase() {
-        return null;
     }
 }

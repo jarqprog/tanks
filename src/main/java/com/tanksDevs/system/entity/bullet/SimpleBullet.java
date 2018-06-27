@@ -7,7 +7,6 @@ import com.tanksDevs.system.entity.hitBox.HitBox;
 
 public class SimpleBullet implements Bullet {
 
-
     @Override
     public void destroy(Destructible target) {
 
@@ -29,23 +28,13 @@ public class SimpleBullet implements Bullet {
     }
 
     @Override
-    public int getId() {
+    public double getSpeed() {
         return 0;
     }
 
     @Override
-    public int getX() {
-        return 0;
-    }
-
-    @Override
-    public int getY() {
-        return 0;
-    }
-
-    @Override
-    public int getSpeed() {
-        return 0;
+    public Direction getDirection() {
+        return null;
     }
 
     @Override
@@ -66,5 +55,20 @@ public class SimpleBullet implements Bullet {
     @Override
     public HitBox getHitBox() {
         return null;
+    }
+
+    @Override
+    public int getId() {
+        return 0;
+    }
+
+    @Override
+    public double getX() {
+        return 0;
+    }
+
+    @Override
+    public double getY() {
+        return 0;
     }
 }
