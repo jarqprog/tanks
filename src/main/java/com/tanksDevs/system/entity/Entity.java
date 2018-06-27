@@ -5,5 +5,5 @@ public interface Entity {
     int getId();
     int getX();
     int getY();
-
+    int getSize();
 }
