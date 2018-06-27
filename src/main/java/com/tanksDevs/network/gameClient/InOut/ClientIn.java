@@ -1,4 +1,4 @@
-package com.tanksDevs.network.helpers;
+package com.tanksDevs.network.gameClient.InOut;
 
 import com.tanksDevs.system.game.Game;
 import com.tanksDevs.system.pojo.GlobalState;
