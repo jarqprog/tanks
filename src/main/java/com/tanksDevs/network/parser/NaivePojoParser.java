@@ -18,6 +18,8 @@ import com.tanksDevs.system.game.Game;
 import com.tanksDevs.system.game.GamePojo;
 import com.tanksDevs.system.player.Player;
 import com.tanksDevs.system.player.PlayerPojo;
+import com.tanksDevs.system.player.User;
+import com.tanksDevs.system.player.UserPojo;
 import com.tanksDevs.system.pojo.EntityPojo;
 
 public class NaivePojoParser implements PojoParser {
@@ -26,7 +28,7 @@ public class NaivePojoParser implements PojoParser {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends Entity, P extends EntityPojo> T parse(P pojo) {
+    public <T extends Entity, P extends EntityPojo> T parse(P pojo) { // Todo Bullet &  water pojo to entity
 
         Genre genre = pojo.getGenre();
         T entity = null;
@@ -57,7 +59,8 @@ public class NaivePojoParser implements PojoParser {
 
 
     @Override
-    public <T extends Entity, P extends EntityPojo> P parse(T entity) {
+    @SuppressWarnings("unchecked")
+    public <T extends Entity, P extends EntityPojo> P parse(T entity) { // Todo Bullet &  water entity to pojo
         Genre genre = entity.getGenre();
         P pojo = null;
 
@@ -82,7 +85,7 @@ public class NaivePojoParser implements PojoParser {
                 forestPojo.setGenre(entity.getGenre());
                 pojo = (P) forestPojo;
                 break;
-            case TANK:
+            case TANK: // Todo If tank upgarded fill this!
                 TankPojo tankPojo = new SimpleTankPojo();
                 Tank tank = (SimpleTank) entity;
                 tankPojo.setId(entity.getId());
@@ -113,6 +116,8 @@ public class NaivePojoParser implements PojoParser {
                 solidWallPojo.setGenre(entity.getGenre());
                 pojo = (P) solidWallPojo;
                 break;
+            default:
+                break;
         }
         return pojo;
     }
@@ -129,11 +134,27 @@ public class NaivePojoParser implements PojoParser {
 
     @Override
     public Player parse(PlayerPojo playerPojo) {
-        return null;
+        return new User(playerPojo);
     }
 
     @Override
-    public PlayerPojo parse(Player player) {
-        return null;
+    public PlayerPojo parse(Player player) { // Todo If tank upgarded fill this!
+        PlayerPojo playerPojo = new UserPojo();
+
+        TankPojo tankPojo = new SimpleTankPojo();
+        SimpleTank tank = (SimpleTank) player.getTank();
+        tankPojo.setId(tank.getId());
+        tankPojo.setX(tank.getX());
+        tankPojo.setY(tank.getY());
+        tankPojo.setSize(tank.getSize());
+        tankPojo.setHp(tank.getHp());
+        tankPojo.setGenre(tank.getGenre());
+
+        playerPojo.setTankPojo(tankPojo);
+        playerPojo.setName(player.getName());
+        playerPojo.setScore(player.getScore());
+        playerPojo.setReady(player.isReady());
+
+        return playerPojo;
     }
 }
