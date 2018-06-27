@@ -14,6 +14,9 @@ import com.tanksDevs.system.entity.tank.SimpleTank;
 import com.tanksDevs.system.entity.tank.SimpleTankPojo;
 import com.tanksDevs.system.entity.tank.Tank;
 import com.tanksDevs.system.entity.tank.TankPojo;
+import com.tanksDevs.system.entity.water.SimpleWater;
+import com.tanksDevs.system.entity.water.SimpleWaterPojo;
+import com.tanksDevs.system.entity.water.WaterPojo;
 import com.tanksDevs.system.game.Game;
 import com.tanksDevs.system.game.GamePojo;
 import com.tanksDevs.system.player.Player;
@@ -28,7 +31,7 @@ public class NaivePojoParser implements PojoParser {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends Entity, P extends EntityPojo> T parse(P pojo) { // Todo Bullet &  water pojo to entity
+    public <T extends Entity, P extends EntityPojo> T parse(P pojo) { // Todo Bullet pojo to entity
 
         Genre genre = pojo.getGenre();
         T entity = null;
@@ -50,6 +53,8 @@ public class NaivePojoParser implements PojoParser {
             case STEELWALL:
                 entity = (T) new SteelWall((SolidWallPojo) pojo);
                 break;
+            case WATER:
+                entity = (T) new SimpleWater((WaterPojo) pojo);
             default:
                 break;
         }
@@ -60,7 +65,7 @@ public class NaivePojoParser implements PojoParser {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends Entity, P extends EntityPojo> P parse(T entity) { // Todo Bullet &  water entity to pojo
+    public <T extends Entity, P extends EntityPojo> P parse(T entity) { // Todo Bullet entity to pojo
         Genre genre = entity.getGenre();
         P pojo = null;
 
@@ -116,6 +121,14 @@ public class NaivePojoParser implements PojoParser {
                 solidWallPojo.setGenre(entity.getGenre());
                 pojo = (P) solidWallPojo;
                 break;
+            case WATER:
+                WaterPojo waterPojo = new SimpleWaterPojo();
+                waterPojo.setId(entity.getId());
+                waterPojo.setX(entity.getX());
+                waterPojo.setY(entity.getY());
+                waterPojo.setSize(entity.getSize());
+                waterPojo.setGenre(entity.getGenre());
+                pojo = (P) waterPojo;
             default:
                 break;
         }
