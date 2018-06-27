@@ -12,14 +12,20 @@ public class SimpleTank extends AbstractEntity implements Tank {
     private int hp;
     private boolean destroyed;
     private HitBox hitBox;
-    private final Genre genre;
+    private final Genre genre = Genre.TANK;
 
     public SimpleTank(int id, double x, double y, double size) {
         super(id, x, y, size);
         this.hp = 5;
         this.destroyed = false;
         this.hitBox = new BasicHitBox(x, y, size);
-        this.genre = Genre.TANK;
+    }
+
+    public SimpleTank(TankPojo tankPojo){
+        super(tankPojo.getId(), tankPojo.getX(), tankPojo.getY(), tankPojo.getSize());
+        this.hp = tankPojo.getHp();
+        this.destroyed = (hp <= 0);
+        this.hitBox = new BasicHitBox(tankPojo.getX(), tankPojo.getY(), tankPojo.getSize());
     }
 
     @Override
