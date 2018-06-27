@@ -32,21 +32,6 @@ public class SimpleBullet extends AbstractEntity implements Bullet {
     }
 
     @Override
-    public int getId() {
-        return 0;
-    }
-
-    @Override
-    public int getX() {
-        return 0;
-    }
-
-    @Override
-    public int getY() {
-        return 0;
-    }
-
-    @Override
     public Genre getGenre() {
         return genre;
     }
