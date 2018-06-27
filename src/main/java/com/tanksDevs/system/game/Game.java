@@ -11,7 +11,6 @@ public interface Game {
 
     Board getBoard();
     Set<Colliding> getColliding();
-    Set<Player> getPlayers();
     Set<Tank> getTanks();
     boolean markPlayerTank(Tank tank);
     boolean registerPlayer(Player player);
