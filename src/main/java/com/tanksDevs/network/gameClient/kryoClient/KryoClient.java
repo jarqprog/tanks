@@ -5,7 +5,6 @@ import com.tanksDevs.network.gameClient.GameClient;
 import com.tanksDevs.network.gameServer.GameServer;
 import com.tanksDevs.network.gameClient.InOut.ClientIn;
 import com.tanksDevs.network.gameClient.InOut.ClientOut;
-import com.tanksDevs.network.gameServer.ServerSuplier;
 import com.tanksDevs.network.parser.PojoParser;
 import com.tanksDevs.system.game.Game;
 import com.tanksDevs.system.player.Player;

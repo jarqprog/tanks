@@ -5,9 +5,9 @@ import com.tanksDevs.system.entity.Genre;
 public abstract class AbstractEntityPojo implements EntityPojo {
 
     private int id;
-    private int X;
-    private int Y;
-    private int size;
+    private double X;
+    private double Y;
+    private double size;
     private Genre genre;
 
     @Override
@@ -16,17 +16,17 @@ public abstract class AbstractEntityPojo implements EntityPojo {
     }
 
     @Override
-    public int getX() {
+    public double getX() {
         return X;
     }
 
     @Override
-    public int getY() {
+    public double getY() {
         return Y;
     }
 
     @Override
-    public int getSize() {
+    public double getSize() {
         return size;
     }
 
@@ -36,17 +36,17 @@ public abstract class AbstractEntityPojo implements EntityPojo {
     }
 
     @Override
-    public void setX(int x) {
+    public void setX(double x) {
         X = x;
     }
 
     @Override
-    public void setY(int y) {
+    public void setY(double y) {
         Y = y;
     }
 
     @Override
-    public void setSize(int size) {
+    public void setSize(double size) {
         this.size = size;
     }
 

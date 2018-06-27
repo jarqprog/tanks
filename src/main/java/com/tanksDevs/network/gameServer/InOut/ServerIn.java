@@ -1,4 +1,9 @@
 package com.tanksDevs.network.gameServer.InOut;
 
-public interface ServerIn {
+import com.tanksDevs.network.states.LocalState;
+
+public interface ServerIn extends Runnable {
+
+    LocalState getLocalState();
+
 }
