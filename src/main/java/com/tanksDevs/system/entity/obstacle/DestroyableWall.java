@@ -1,9 +1,9 @@
-package com.tanksDevs.system.entity.eagle;
+package com.tanksDevs.system.entity.obstacle;
 
 import com.tanksDevs.system.entity.Colliding;
 import com.tanksDevs.system.entity.Destructible;
 
-public interface TankBase extends Colliding, Destructible {
+public interface DestroyableWall extends Destructible, Colliding {
 
     //marker
 }
