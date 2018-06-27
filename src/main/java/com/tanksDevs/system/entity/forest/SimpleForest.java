@@ -5,11 +5,14 @@ import com.tanksDevs.system.entity.Genre;
 
 public class SimpleForest extends AbstractEntity implements Forest {
 
-    private final Genre genre;
+    private final Genre genre = Genre.FOREST;
 
     public SimpleForest(int id, double x, double y, double size) {
         super(id, x, y, size);
-        this.genre = Genre.FOREST;
+    }
+
+    public SimpleForest(ForestPojo forestPojo) {
+        super(forestPojo.getId(), forestPojo.getX(), forestPojo.getY(), forestPojo.getSize());
     }
 
     @Override
