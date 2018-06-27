@@ -24,7 +24,7 @@ public class SimpleGame extends Application implements Game {
     private static final String TITLE = "Tanks";
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
-    private static final int TILE_SIZE = 68;
+    private static final int TILE_SIZE = 40;
 
     private Canvas canvas;
     private GraphicsContext gc;
@@ -53,8 +53,8 @@ public class SimpleGame extends Application implements Game {
 
     private void initImageViews() {
         try {
-            imageViewTankP1 = new ImageView(new Image(new FileInputStream("src/main/resources/textures/tank1.png")));
-            imageViewTankP2 = new ImageView(new Image(new FileInputStream("src/main/resources/textures/tank2.png")));
+            imageViewTankP1 = new ImageView(new Image(new FileInputStream("src/main/resources/textures/tank_sand.png")));
+            imageViewTankP2 = new ImageView(new Image(new FileInputStream("src/main/resources/textures/tank_green.png")));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
