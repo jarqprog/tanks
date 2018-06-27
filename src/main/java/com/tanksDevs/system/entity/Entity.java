@@ -3,8 +3,8 @@ package com.tanksDevs.system.entity;
 public interface Entity {
 
     int getId();
-    int getX();
-    int getY();
-    int getSize();
+    double getX();
+    double getY();
+    double getSize();
     Genre getGenre();
 }

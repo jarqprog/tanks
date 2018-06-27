@@ -12,7 +12,7 @@ public class SimpleTank extends AbstractEntity implements Tank {
     private HitBox hitBox;
     private final Genre genre;
 
-    public SimpleTank(int id, int x, int y, int size) {
+    public SimpleTank(int id, double x, double y, double size) {
         super(id, x, y, size);
         this.hitBox = new BasicHitBox(x, y, size);
         this.genre = Genre.TANK;

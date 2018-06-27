@@ -14,7 +14,7 @@ public class BrickWall extends AbstractEntity implements Destructible, Colliding
     private HitBox hitBox;
     private final Genre genre;
 
-    public BrickWall(int id, int x, int y, int size) {
+    public BrickWall(int id, double x, double y, double size) {
         super(id, x, y, size);
         this.hp = 1;
         this.destroyed = false;

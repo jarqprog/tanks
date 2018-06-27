@@ -2,32 +2,32 @@ package com.tanksDevs.system.entity.hitBox;
 
 public class BasicHitBox implements HitBox {
 
-    private int bottomX;
-    private int bottomY;
-    private int topX;
-    private int topY;
-    private int side;
+    private double bottomX;
+    private double bottomY;
+    private double topX;
+    private double topY;
+    private double side;
 
-    public BasicHitBox(int bottomX, int bottomY, int side) {
+    public BasicHitBox(double bottomX, double bottomY, double side) {
         this.bottomX = bottomX;
         this.bottomY = bottomY;
         this.side = side;
         calculatePeaks();
     }
 
-    public int getBottomX() {
+    public double getBottomX() {
         return bottomX;
     }
 
-    public int getBottomY() {
+    public double getBottomY() {
         return bottomY;
     }
 
-    public int getTopX() {
+    public double getTopX() {
         return topX;
     }
 
-    public int getTopY() {
+    public double getTopY() {
         return topY;
     }
 

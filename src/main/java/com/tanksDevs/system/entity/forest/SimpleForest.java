@@ -7,7 +7,7 @@ public class SimpleForest extends AbstractEntity implements Forest {
 
     private final Genre genre;
 
-    public SimpleForest(int id, int x, int y, int size) {
+    public SimpleForest(int id, double x, double y, double size) {
         super(id, x, y, size);
         this.genre = Genre.FOREST;
     }

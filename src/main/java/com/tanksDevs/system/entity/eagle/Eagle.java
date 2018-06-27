@@ -13,7 +13,7 @@ public class Eagle extends AbstractEntity implements TankBase {
     private HitBox hitBox;
     private final Genre genre;
 
-    public Eagle(int id, int x, int y, int size) {
+    public Eagle(int id, double x, double y, double size) {
         super(id, x, y, size);
         this.hp = 10;
         this.hitBox = new BasicHitBox(x, y, size);

@@ -11,7 +11,7 @@ public class SteelWall extends AbstractEntity implements Colliding {
     private HitBox hitBox;
     private final Genre genre;
 
-    public SteelWall(int id, int x, int y, int size) {
+    public SteelWall(int id, double x, double y, double size) {
         super(id, x, y, size);
         this.hitBox = new BasicHitBox(x, y, size);
         this.genre = Genre.STEELWALL;
