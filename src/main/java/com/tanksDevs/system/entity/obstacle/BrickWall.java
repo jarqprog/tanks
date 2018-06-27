@@ -4,29 +4,32 @@ import com.tanksDevs.system.entity.AbstractEntity;
 import com.tanksDevs.system.entity.Colliding;
 import com.tanksDevs.system.entity.Destructible;
 import com.tanksDevs.system.entity.Genre;
+import com.tanksDevs.system.entity.hitBox.BasicHitBox;
 import com.tanksDevs.system.entity.hitBox.HitBox;
 
 public class BrickWall extends AbstractEntity implements Destructible, Colliding {
 
     private int hp;
     private boolean destroyed;
+    private HitBox hitBox;
     private final Genre genre;
 
     public BrickWall(int id, int x, int y, int size) {
         super(id, x, y, size);
         this.hp = 1;
         this.destroyed = false;
+        this.hitBox = new BasicHitBox(x, y, size);
         this.genre = Genre.BRICKWALL;
     }
 
     @Override
-    public boolean isCollision(Colliding other) { //Todo implement collision
-        return false;
+    public boolean isCollision(Colliding other) {
+        return hitBox.checkCollision(other.getHitBox());
     }
 
     @Override
     public HitBox getHitBox() {
-        return null;
+        return hitBox;
     }
 
     @Override
