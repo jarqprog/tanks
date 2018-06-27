@@ -1,12 +1,17 @@
 package com.tanksDevs.system.entity.bullet;
 
+import com.tanksDevs.system.entity.AbstractEntity;
 import com.tanksDevs.system.entity.Colliding;
 import com.tanksDevs.system.entity.Destructible;
 import com.tanksDevs.system.entity.Direction;
 import com.tanksDevs.system.entity.hitBox.HitBox;
 
-public class SimpleBullet implements Bullet {
+public class SimpleBullet extends AbstractEntity implements Bullet {
 
+
+    public SimpleBullet(int id) {
+        super(id);
+    }
 
     @Override
     public void destroy(Destructible target) {
