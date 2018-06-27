@@ -1,6 +1,6 @@
 package com.tanksDevs.system.player;
 
-import com.tanksDevs.system.gameObject.tank.Tank;
+import com.tanksDevs.system.entity.tank.Tank;
 
 public interface Player {
     Tank getTank();
