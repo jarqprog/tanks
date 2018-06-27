@@ -52,21 +52,6 @@ public class SimpleTank extends AbstractEntity implements Tank {
     }
 
     @Override
-    public int getId() {
-        return 0;
-    }
-
-    @Override
-    public int getX() {
-        return 0;
-    }
-
-    @Override
-    public int getY() {
-        return 0;
-    }
-
-    @Override
     public int cooldown() {
         return 0;
     }
