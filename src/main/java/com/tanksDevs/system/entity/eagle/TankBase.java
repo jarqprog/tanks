@@ -5,4 +5,5 @@ import com.tanksDevs.system.entity.Destructible;
 
 public interface TankBase extends Colliding, Destructible {
 
+    //marker
 }
