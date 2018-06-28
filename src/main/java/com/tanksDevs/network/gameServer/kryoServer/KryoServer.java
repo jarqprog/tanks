@@ -115,7 +115,7 @@ public class KryoServer implements GameServer {
 
         while ( notReady ) {
 
-            if ( game != null && game.getPlayers().size() == game.getTanks().size() -1) {
+            if ( game != null && game.getPlayers().size() == game.getTanks().size() ) {
                 serverIn.stopPreparation();
                 serverOut.stopPreparation();
                 notReady = false;
