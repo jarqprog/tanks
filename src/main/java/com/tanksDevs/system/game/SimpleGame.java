@@ -1,8 +1,11 @@
 package com.tanksDevs.system.game;
 
+import com.tanksDevs.system.board.Board;
+import com.tanksDevs.system.entity.Colliding;
 import com.tanksDevs.system.entity.Direction;
 import com.tanksDevs.system.entity.tank.PlayerTank;
 import com.tanksDevs.system.entity.tank.Tank;
+import com.tanksDevs.system.player.Player;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -17,6 +20,9 @@ import javafx.stage.Stage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class SimpleGame extends Application implements Game {
 
@@ -71,7 +77,7 @@ public class SimpleGame extends Application implements Game {
       @Override
       public boolean markPlayerTank(Tank tank) {
 
-          for( Iterator<Tank> it = tanks.iterator(); it.hasNext(); ) {
+          for(Iterator<Tank> it = tanks.iterator(); it.hasNext(); ) {
               Tank toMark = it.next();
               if (toMark.equals(tank)) {
                   toMark.markAsOccupied();
