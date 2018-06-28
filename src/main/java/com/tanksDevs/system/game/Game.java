@@ -14,6 +14,7 @@ public interface Game {
     Set<Tank> getTanks();
     boolean markPlayerTank(Tank tank);
     boolean registerPlayer(Player player);
+    Set<Player> getPlayers();
     void setTanks(Set<Tank> tanks);
     void setCollidings(Set<Colliding> collidings);
     // todo potrzeba wymyślić co z bazą!

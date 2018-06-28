@@ -5,7 +5,9 @@ import com.tanksDevs.network.states.LocalState;
 
 public interface ClientOut extends Runnable {
 
-    void putState(LocalState localState);
-    void updateGame(Game game);
+    void putLocalState(LocalState localState);
+    void putGame(Game game);
+    void stop();
+    void stopPreparation();
 
 }

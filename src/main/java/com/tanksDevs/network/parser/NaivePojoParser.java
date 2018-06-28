@@ -2,11 +2,13 @@ package com.tanksDevs.network.parser;
 
 import com.tanksDevs.system.entity.Entity;
 import com.tanksDevs.system.entity.Genre;
+
 import com.tanksDevs.system.entity.eagle.Eagle;
 import com.tanksDevs.system.entity.eagle.EaglePojo;
 import com.tanksDevs.system.entity.eagle.TankBase;
 import com.tanksDevs.system.entity.eagle.TankBasePojo;
 import com.tanksDevs.system.entity.forest.ForestPojo;
+
 import com.tanksDevs.system.entity.forest.SimpleForest;
 import com.tanksDevs.system.entity.forest.SimpleForestPojo;
 import com.tanksDevs.system.entity.obstacle.*;
@@ -133,11 +135,6 @@ public class NaivePojoParser implements PojoParser {
                 break;
         }
         return pojo;
-    }
-
-    @Override
-    public Game parse(GamePojo gamePojo) {
-        return null;
     }
 
     @Override
