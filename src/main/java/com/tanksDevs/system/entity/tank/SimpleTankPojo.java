@@ -1,6 +1,7 @@
 package com.tanksDevs.system.entity.tank;
 
 import com.tanksDevs.system.entity.Direction;
+import com.tanksDevs.system.entity.eagle.TankBasePojo;
 import com.tanksDevs.system.pojo.AbstractEntityPojo;
 
 public class SimpleTankPojo extends AbstractEntityPojo implements TankPojo {
@@ -9,6 +10,7 @@ public class SimpleTankPojo extends AbstractEntityPojo implements TankPojo {
     private Direction direction;
     private int hp;
     private boolean isOccupied;
+    private TankBasePojo tankBasePojo;
 
     public SimpleTankPojo() {}
 
@@ -50,5 +52,15 @@ public class SimpleTankPojo extends AbstractEntityPojo implements TankPojo {
     @Override
     public void setIsOccupied(boolean isOccupied) {
         this.isOccupied = isOccupied;
+    }
+
+    @Override
+    public TankBasePojo getTankBasePojo() {
+        return tankBasePojo;
+    }
+
+    @Override
+    public void setTankBasePojo(TankBasePojo tankBasePojo) {
+        this.tankBasePojo = tankBasePojo;
     }
 }

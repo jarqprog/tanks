@@ -2,24 +2,9 @@ package com.tanksDevs.system.game;
 
 import com.tanksDevs.system.board.Board;
 import com.tanksDevs.system.entity.Colliding;
-import com.tanksDevs.system.entity.Direction;
-import com.tanksDevs.system.entity.tank.PlayerTank;
 import com.tanksDevs.system.entity.tank.Tank;
 import com.tanksDevs.system.player.Player;
-import javafx.animation.AnimationTimer;
-import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;

@@ -15,6 +15,7 @@ import com.tanksDevs.network.parser.NaivePojoParser;
 import com.tanksDevs.network.parser.PojoParser;
 import com.tanksDevs.system.entity.Colliding;
 import com.tanksDevs.system.entity.Direction;
+import com.tanksDevs.system.entity.eagle.Eagle;
 import com.tanksDevs.system.entity.tank.SimpleTank;
 import com.tanksDevs.system.entity.tank.Tank;
 import com.tanksDevs.system.game.Game;
@@ -45,9 +46,9 @@ public class NetRoot implements Root {
         int portUDP = 9900;
         int largeTimeWindow = 500;
         int shortTimeWindow = 12;
-//        String ipAddress = "192.168.11.70"; // Adam
+        String ipAddress = "192.168.11.70"; // Adam
 //        String ipAddress = "192.168.10.244"; // Jarek
-        String ipAddress = "192.168.10.242"; // Michal
+//        String ipAddress = "192.168.10.242"; // Michal
 
         String userChoice = "";
 
@@ -65,8 +66,10 @@ public class NetRoot implements Root {
         Set<Colliding> collidings = new HashSet<>();
         Set<Tank> tanks = new HashSet<>();
 
-        Tank first = new SimpleTank(10, 10, 10, 10, Direction.NORTH);
-        Tank second = new SimpleTank(20, 20, 20, 20, Direction.SOUTH);
+        Tank first = new SimpleTank(10, 10, 10, 10, Direction.NORTH,
+                new Eagle(51, 51, 51, 12));
+        Tank second = new SimpleTank(20, 20, 20, 20, Direction.SOUTH,
+                new Eagle(52, 61, 61, 12));
 
         collidings.add(first);
         tanks.add(first);

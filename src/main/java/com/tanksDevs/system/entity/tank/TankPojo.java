@@ -1,6 +1,7 @@
 package com.tanksDevs.system.entity.tank;
 
 import com.tanksDevs.system.entity.Direction;
+import com.tanksDevs.system.entity.eagle.TankBasePojo;
 import com.tanksDevs.system.pojo.EntityPojo;
 
 public interface TankPojo extends EntityPojo {
@@ -13,5 +14,6 @@ public interface TankPojo extends EntityPojo {
     void setHp(int hp);
     boolean getIsOccupied();
     void setIsOccupied(boolean isOccupied);
-
+    TankBasePojo getTankBasePojo();
+    void setTankBasePojo(TankBasePojo tankBasePojo);
 }
