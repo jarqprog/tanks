@@ -110,9 +110,8 @@ public class NetRoot implements Root {
                             kryoRegister, player);
 
         }
-
-
-        GameClient gameClient = KryoClient.createKryoClient(clientSupplier);
+        
+        GameClient gameClient = KryoClient.createKryoClient(clientSupplier, null);
 
         gameClient.runClient();
     }
