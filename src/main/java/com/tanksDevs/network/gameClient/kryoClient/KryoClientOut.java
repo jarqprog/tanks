@@ -11,23 +11,29 @@ public class KryoClientOut implements ClientOut {
 
     private final Client client;
     private final PojoParser pojoParser;
+    private final int largeTimeWindow;
+    private final int shortTimeWindow;
 
-    private Game game;
-    private LocalState localState;
-    private int LONG_WAIT_LENGTH = 2000;
-    private int SHORT_WAIT_LENGTH = 10;
+
+
     private boolean shouldStop;  // if true - stop thread
     private boolean shouldStopPreparation;
 
 
-    public static ClientOut getInstance(Client client, PojoParser pojoParser) {
-        return new KryoClientOut(client, pojoParser);
+    private Game game;
+    private LocalState localState;
+
+
+    public static ClientOut getInstance(Client client, PojoParser pojoParser, int largeTimeWindow, int shortTimeWindow) {
+        return new KryoClientOut(client, pojoParser, largeTimeWindow, shortTimeWindow);
     }
 
 
-    private KryoClientOut(Client client, PojoParser pojoParser) {
+    private KryoClientOut(Client client, PojoParser pojoParser, int largeTimeWindow, int shortTimeWindow) {
         this.client = client;
         this.pojoParser = pojoParser;
+        this.largeTimeWindow = largeTimeWindow;
+        this.shortTimeWindow = shortTimeWindow;
     }
 
 
@@ -69,7 +75,7 @@ public class KryoClientOut implements ClientOut {
             }
 
             try {
-                wait(LONG_WAIT_LENGTH);
+                wait(largeTimeWindow);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

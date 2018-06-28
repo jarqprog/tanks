@@ -9,8 +9,7 @@ public class User implements Player{
     private int score;
     private boolean isReady;
 
-    public User(String name, Tank tank) {
-        this.tank = tank;
+    public User(String name) {
         this.name = name;
         this.score = 0;
         this.isReady = false;

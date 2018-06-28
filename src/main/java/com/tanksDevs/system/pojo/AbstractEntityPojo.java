@@ -4,11 +4,11 @@ import com.tanksDevs.system.entity.Genre;
 
 public abstract class AbstractEntityPojo implements EntityPojo {
 
-    protected int id;
-    protected double X;
-    protected double Y;
-    protected double size;
-    protected Genre genre;
+    private int id;
+    private double X;
+    private double Y;
+    private double size;
+    private Genre genre;
 
     @Override
     public int getId() {

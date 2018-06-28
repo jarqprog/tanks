@@ -41,7 +41,6 @@ import java.util.Set;
 public class NaivePojoParser implements PojoParser {
 
 
-
     @Override
     @SuppressWarnings("unchecked")
     public <T extends Entity, P extends EntityPojo> T parse(P pojo) { // Todo Bullet pojo to entity
@@ -126,6 +125,7 @@ public class NaivePojoParser implements PojoParser {
                 tankPojo.setSize(entity.getSize());
                 tankPojo.setHp(tank.getHp());
                 tankPojo.setGenre(entity.getGenre());
+                tankPojo.setIsOccupied(((SimpleTank) entity).hasPlayer());
                 pojo = (P) tankPojo;
                 break;
             case BRICKWALL:
@@ -220,18 +220,22 @@ public class NaivePojoParser implements PojoParser {
 
     @Override
     public PlayerPojo parse(Player player) { // Todo If tank upgarded fill this!
+
         PlayerPojo playerPojo = new UserPojo();
-
         TankPojo tankPojo = new SimpleTankPojo();
-        SimpleTank tank = (SimpleTank) player.getTank();
-        tankPojo.setId(tank.getId());
-        tankPojo.setX(tank.getX());
-        tankPojo.setY(tank.getY());
-        tankPojo.setSize(tank.getSize());
-        tankPojo.setHp(tank.getHp());
-        tankPojo.setGenre(tank.getGenre());
+        Tank tank = player.getTank();
 
-        playerPojo.setTankPojo(tankPojo);
+        if (tank != null) {
+            tankPojo.setId(tank.getId());
+            tankPojo.setX(tank.getX());
+            tankPojo.setY(tank.getY());
+            tankPojo.setSize(tank.getSize());
+            tankPojo.setHp(tank.getHp());
+            tankPojo.setGenre(tank.getGenre());
+            tankPojo.setIsOccupied(tank.hasPlayer());
+            playerPojo.setTankPojo(tankPojo);
+        }
+
         playerPojo.setName(player.getName());
         playerPojo.setScore(player.getScore());
         playerPojo.setReady(player.isReady());

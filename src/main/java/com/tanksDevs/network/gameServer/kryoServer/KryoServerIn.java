@@ -14,23 +14,27 @@ public class KryoServerIn implements ServerIn {
 
     private final Server server;
     private final PojoParser pojoParser;
+    private final int largeTimeWindow;
+    private final int shortTimeWindow;
     private boolean shouldStop;  // if true - stop thread
     private boolean shouldStopPreparation;
-    private int LONG_WAIT_LENGTH = 1000;
-    private int SHORT_WAIT_LENGTH = 10;
+
 
     private Game game;
     private LocalState localState;
 
 
-    public static ServerIn getInstance(Server server, PojoParser pojoParser) {
-        return new KryoServerIn(server, pojoParser);
+    public static ServerIn getInstance(Server server, PojoParser pojoParser,
+                                       int largeTimeWindow, int shortTimeWindow) {
+        return new KryoServerIn(server, pojoParser, largeTimeWindow, shortTimeWindow);
     }
 
 
-    private KryoServerIn(Server server, PojoParser pojoParser) {
+    private KryoServerIn(Server server, PojoParser pojoParser, int largeTimeWindow, int shortTimeWindow) {
         this.server = server;
         this.pojoParser = pojoParser;
+        this.largeTimeWindow = largeTimeWindow;
+        this.shortTimeWindow = shortTimeWindow;
     }
 
     @Override
@@ -65,19 +69,18 @@ public class KryoServerIn implements ServerIn {
 
 
         while (! shouldStopPreparation ) {
-            try {
-            System.out.println("deser!! serverIn");
+
             server.addListener(new Listener() {
 
                 public void received (Connection connection, Object object) {
-                    if (object instanceof GamePojo) {
-                        game = pojoParser.parse( (GamePojo) object);
-                    }
+                if (object instanceof GamePojo) {
+                    game = pojoParser.parse( (GamePojo) object);
+                }
                 }
             });
 
-
-                wait(LONG_WAIT_LENGTH);
+            try {
+                wait(largeTimeWindow);
             } catch (Exception e) {
                 e.printStackTrace();
 
