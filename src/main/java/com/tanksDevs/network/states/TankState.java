@@ -28,4 +28,5 @@ public class TankState implements LocalState {
     public void setTankId(int tankId) {
         this.tankId = tankId;
     }
+
 }

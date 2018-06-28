@@ -22,6 +22,7 @@ import com.tanksDevs.system.player.Player;
 import com.tanksDevs.system.player.User;
 
 import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Set;
 
 public class NetRoot implements Root {
@@ -45,9 +46,19 @@ public class NetRoot implements Root {
         int shortTimeWindow = 5;
         String ipAddress = "127.0.0.1";
 
-        PojoParser parser = new NaivePojoParser();
-        KryoRegister kryoRegister = SimpleKryoRegister.create();
-        Player player = new User("Adam");
+        String userChoice = "";
+
+        boolean isReady = false;
+        Scanner sc = new Scanner(System.in);
+
+        while ( userChoice.length() == 0 ) {
+            System.out.println("To create game, type 'C', or anything else to join existing game");
+
+            userChoice = sc.nextLine();
+
+        }
+
+        // create game
 
         Set<Colliding> collidings = new HashSet<>();
         Set<Tank> tanks = new HashSet<>();
@@ -60,20 +71,42 @@ public class NetRoot implements Root {
         collidings.add(second);
         tanks.add(second);
 
+        PojoParser parser = new NaivePojoParser();
+        KryoRegister kryoRegister = SimpleKryoRegister.create();
 
         Game game = new SimpleGame(collidings, tanks);
 
-        ServerSupplier serverSupplier = KryoServerSupplier
-                .create(portTCP, portUDP, largeTimeWindow, shortTimeWindow, ipAddress, parser, kryoRegister);
-        serverSupplier.setGame(game);
+        Player player;
+        ClientSupplier clientSupplier;
 
-        GameServer gameServer = KryoServer.createKryoServer(serverSupplier);
+        if (userChoice.toUpperCase().equals("C")) {
 
-        ClientSupplier clientSupplier = KryoClientSupplier
-                .create(portTCP, portUDP, largeTimeWindow, shortTimeWindow, ipAddress, parser,
-                kryoRegister, player);
+            player = new User("Adam");
 
-        clientSupplier.registerServer(gameServer);
+            ServerSupplier serverSupplier = KryoServerSupplier
+                    .create(portTCP, portUDP, largeTimeWindow, shortTimeWindow, ipAddress, parser, kryoRegister);
+            serverSupplier.setGame(game);
+
+            GameServer gameServer = KryoServer.createKryoServer(serverSupplier);
+
+            clientSupplier = KryoClientSupplier
+                    .create(portTCP, portUDP, largeTimeWindow, shortTimeWindow, ipAddress, parser,
+                            kryoRegister, player);
+
+            clientSupplier.registerServer(gameServer);
+
+            clientSupplier.registerServer(gameServer);
+
+        } else {
+
+            player = new User("Marcin");
+
+            clientSupplier = KryoClientSupplier
+                    .create(portTCP, portUDP, largeTimeWindow, shortTimeWindow, ipAddress, parser,
+                            kryoRegister, player);
+
+        }
+
 
         GameClient gameClient = KryoClient.createKryoClient(clientSupplier);
 
