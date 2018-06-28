@@ -1,5 +1,7 @@
 package com.tanksDevs.system.entity;
 
+import java.util.Objects;
+
 public abstract class AbstractEntity implements Entity {
     private int id;
     private double x;
@@ -59,5 +61,20 @@ public abstract class AbstractEntity implements Entity {
     public String toString() {
         return getClass().getSimpleName() +
                 "id=" + id + " " + getGenre().toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return id + Objects.hashCode(this.getGenre());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean result = false;
+        if(obj instanceof AbstractEntity){
+            AbstractEntity abstractEntity = (AbstractEntity) obj;
+            result = (this.id == abstractEntity.getId() && this.getGenre() == abstractEntity.getGenre());
+        }
+        return result;
     }
 }
