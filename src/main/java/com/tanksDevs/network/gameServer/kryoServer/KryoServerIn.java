@@ -108,22 +108,13 @@ public class KryoServerIn implements ServerIn {
 
     private synchronized void handleGame() {
 
-//        while (! shouldStop ) {
+        server.addListener(new Listener() {
 
-            server.addListener(new Listener() {
-
-                public void received (Connection connection, Object object) {
-                if (object instanceof LocalState) {
-                    stateStorage.add( (LocalState) object );
-                }
-                }
-            });
-
-//            try {
-//                wait(shortTimeWindow);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
+            public void received (Connection connection, Object object) {
+            if (object instanceof LocalState) {
+                stateStorage.add( (LocalState) object );
+            }
+            }
+        });
     }
 }
