@@ -14,7 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
-public class CentralMenu {
+class CentralMenu {
 
     private static final double GAP = 4;
 
@@ -31,11 +31,12 @@ public class CentralMenu {
     private static final double INITIAL_ALPHA = 1.0;
     private static final double FINAL_ALPHA = 0.0;
     private static final int ANIMATION_DURATION = 2000;
+    private static final double VOLUME = 1.0;
 
     private Parent parent;
     private App app;
 
-    public GridPane build(Parent parent, App app) {
+    GridPane build(Parent parent, App app) {
         GridPane menu = new GridPane();
         this.app = app;
         this.parent = parent;
@@ -72,7 +73,7 @@ public class CentralMenu {
     private void createPlayOnlineListener(ButtonMaker playOnline) {
         this.playOnline.setOnMousePressed(event -> {
             if (app.isAllowListeners()) {
-                Music.play(Track.EXPLOSION);
+                Music.play(Track.EXPLOSION, VOLUME);
                 playOnline.changeStateDown();
                 animateScreenSwitch(event1 -> {
                     app.setAllowListeners(true);
@@ -85,7 +86,7 @@ public class CentralMenu {
     private void createPlayLocalListener(ButtonMaker playLocal) {
         this.playLocal.setOnMousePressed(event -> {
             if (app.isAllowListeners()) {
-                Music.play(Track.EXPLOSION);
+                Music.play(Track.EXPLOSION, VOLUME);
                 playLocal.changeStateDown();
                 animateScreenSwitch(event1 -> {
                     app.setAllowListeners(true);
@@ -99,7 +100,7 @@ public class CentralMenu {
     private void createRunEditorListener(ButtonMaker runEditor) {
         this.runEditor.setOnMousePressed(event -> {
             if (app.isAllowListeners()) {
-                Music.play(Track.EXPLOSION);
+                Music.play(Track.EXPLOSION, VOLUME);
                 runEditor.changeStateDown();
                 animateScreenSwitch(event1 -> {
                     app.setAllowListeners(true);
@@ -112,7 +113,7 @@ public class CentralMenu {
     private void createExitListener(ButtonMaker exit) {
         this.exit.setOnMousePressed(event -> {
             if (app.isAllowListeners()) {
-                Music.play(Track.EXPLOSION);
+                Music.play(Track.EXPLOSION, VOLUME);
                 exit.changeStateDown();
                 animateScreenSwitch(event1 -> {
                     app.setAllowListeners(true);
