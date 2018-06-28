@@ -4,6 +4,8 @@ import com.tanksDevs.App;
 import com.tanksDevs.layout.GameScreen;
 import com.tanksDevs.layout.button.ButtonMaker;
 import com.tanksDevs.layout.utils.FadeAnimation;
+import com.tanksDevs.sound.Music;
+import com.tanksDevs.sound.Track;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -70,6 +72,7 @@ public class CentralMenu {
     private void createPlayOnlineListener(ButtonMaker playOnline) {
         this.playOnline.setOnMousePressed(event -> {
             if (app.isAllowListeners()) {
+                Music.play(Track.EXPLOSION);
                 playOnline.changeStateDown();
                 animateScreenSwitch(event1 -> {
                     app.setAllowListeners(true);
@@ -82,6 +85,7 @@ public class CentralMenu {
     private void createPlayLocalListener(ButtonMaker playLocal) {
         this.playLocal.setOnMousePressed(event -> {
             if (app.isAllowListeners()) {
+                Music.play(Track.EXPLOSION);
                 playLocal.changeStateDown();
                 animateScreenSwitch(event1 -> {
                     app.setAllowListeners(true);
@@ -95,6 +99,7 @@ public class CentralMenu {
     private void createRunEditorListener(ButtonMaker runEditor) {
         this.runEditor.setOnMousePressed(event -> {
             if (app.isAllowListeners()) {
+                Music.play(Track.EXPLOSION);
                 runEditor.changeStateDown();
                 animateScreenSwitch(event1 -> {
                     app.setAllowListeners(true);
@@ -107,6 +112,7 @@ public class CentralMenu {
     private void createExitListener(ButtonMaker exit) {
         this.exit.setOnMousePressed(event -> {
             if (app.isAllowListeners()) {
+                Music.play(Track.EXPLOSION);
                 exit.changeStateDown();
                 animateScreenSwitch(event1 -> {
                     app.setAllowListeners(true);
