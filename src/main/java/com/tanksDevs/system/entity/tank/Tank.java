@@ -8,5 +8,4 @@ public interface Tank extends Moveable, Destructible {
     int cooldown();
     boolean hasPlayer();
     void markAsOccupied();
-
 }

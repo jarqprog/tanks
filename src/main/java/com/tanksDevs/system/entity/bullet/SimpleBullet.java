@@ -5,34 +5,61 @@ import com.tanksDevs.system.entity.hitBox.HitBox;
 
 public class SimpleBullet extends AbstractEntity implements Bullet {
 
-    private final Genre genre = Genre.BULLET;
+    private Direction direction;
+    private double speed;
+    private int hp;
+    private boolean destroyed;
+    private HitBox hitBox;
+    private final static int START_BULLET_HP = 1;
+    private final static Genre genre = Genre.BULLET;
+
+    public SimpleBullet() {
+
+    }
+
+    public SimpleBullet(int id, double x, double y, double size, Direction direction) {
+        super(id, x, y, size);
+        this.direction = direction;
+        this.speed = 1.0;
+    }
 
     public SimpleBullet(int id) {
         super(id);
+        this.hp = START_BULLET_HP;
+        destroyed = false;
     }
 
     public SimpleBullet(BulletPojo bulletPojo) {
         super(bulletPojo.getId());
+        this.hp = bulletPojo.getHp();
+        destroyed = (hp <= 0);
     }
 
     @Override
     public void destroy(Destructible target) {
-
+        target.decrementHp(1);
     }
 
     @Override
     public int getHp() {
-        return 0;
+        return hp;
     }
 
     @Override
-    public void decrementHp(int hitPoints) {
+    public double getSpeed() {
+        return speed;
+    }
 
+    public void decrementHp(int hitPoints) {
+        hp -= hitPoints;
+        if(hp <= 0){
+            destroyed = true;
+        }
     }
 
     @Override
     public boolean isDestroyed() {
-        return false;
+        return destroyed;
     }
 
     @Override
@@ -41,13 +68,27 @@ public class SimpleBullet extends AbstractEntity implements Bullet {
     }
 
     @Override
-    public int getSpeed() {
-        return 0;
+    public Direction getDirection() {
+        return direction;
     }
 
     @Override
     public void move(Direction direction) {
-
+        this.direction = direction;
+        switch (direction) {
+            case NORTH:
+                setY( getY() - speed);
+                break;
+            case SOUTH:
+                setY( getY() + speed);
+                break;
+            case EAST:
+                setX( getX() + speed);
+                break;
+            case WEST:
+                setX( getX() - speed);
+                break;
+        }
     }
 
     @Override
@@ -57,12 +98,11 @@ public class SimpleBullet extends AbstractEntity implements Bullet {
 
     @Override
     public boolean isCollision(Colliding other) {
-        return false;
+        return hitBox.checkCollision(other.getHitBox());
     }
 
     @Override
     public HitBox getHitBox() {
-        return null;
+        return hitBox;
     }
-
 }

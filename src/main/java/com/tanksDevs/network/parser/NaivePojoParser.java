@@ -4,6 +4,7 @@ import com.tanksDevs.system.entity.Colliding;
 import com.tanksDevs.system.entity.Entity;
 import com.tanksDevs.system.entity.Genre;
 
+import com.tanksDevs.system.entity.bullet.Bullet;
 import com.tanksDevs.system.entity.bullet.BulletPojo;
 import com.tanksDevs.system.entity.bullet.SimpleBullet;
 import com.tanksDevs.system.entity.bullet.SimpleBulletPojo;
@@ -86,10 +87,12 @@ public class NaivePojoParser implements PojoParser {
         switch (genre){
             case BULLET:
                 BulletPojo bulletPojo = new SimpleBulletPojo();
+                Bullet bullet = (SimpleBullet) entity;
                 bulletPojo.setId(entity.getId());
                 bulletPojo.setX(entity.getX());
                 bulletPojo.setY(entity.getY());
                 bulletPojo.setSize(entity.getSize());
+                bulletPojo.setHp(bullet.getHp());
                 bulletPojo.setGenre(entity.getGenre());
                 pojo = (P) bulletPojo;
                 break;

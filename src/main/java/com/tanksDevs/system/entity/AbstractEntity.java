@@ -6,6 +6,9 @@ public abstract class AbstractEntity implements Entity {
     private double y;
     private double size;
 
+    public AbstractEntity() {
+    }
+
     public AbstractEntity(int id) {
         this.id = id;
     }
@@ -35,6 +38,21 @@ public abstract class AbstractEntity implements Entity {
     @Override
     public double getSize() {
         return size;
+    }
+
+    @Override
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    @Override
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    @Override
+    public void setSize(double size) {
+        this.size = size;
     }
 
     @Override

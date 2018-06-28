@@ -5,6 +5,7 @@ import com.tanksDevs.system.entity.Destructible;
 import com.tanksDevs.system.entity.Direction;
 import com.tanksDevs.system.entity.Genre;
 import com.tanksDevs.system.entity.bullet.Bullet;
+import com.tanksDevs.system.entity.bullet.SimpleBullet;
 import com.tanksDevs.system.entity.hitBox.HitBox;
 import org.junit.Before;
 import org.junit.Test;
@@ -97,7 +98,7 @@ public class BulletBankTest {
 
 
     private Bullet[] getFakeBullets() {
-        Bullet fake = new Bullet() {
+        Bullet fake = new SimpleBullet() {
             @Override
             public void destroy(Destructible target) {
 
@@ -119,7 +120,7 @@ public class BulletBankTest {
             }
 
             @Override
-            public int getSpeed() {
+            public double getSpeed() {
                 return 0;
             }
 
