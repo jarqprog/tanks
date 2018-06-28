@@ -2,6 +2,7 @@ package com.tanksDevs.network.kryoHelper;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.tanksDevs.system.entity.Colliding;
+import com.tanksDevs.system.entity.Direction;
 import com.tanksDevs.system.entity.Genre;
 import com.tanksDevs.system.entity.bullet.SimpleBullet;
 import com.tanksDevs.system.entity.forest.SimpleForest;
@@ -41,6 +42,7 @@ public class SimpleKryoRegister implements KryoRegister {
         kryo.register(SimpleTankPojo.class);
         kryo.register(UserPojo.class);
         kryo.register(Genre.class);
+        kryo.register(Direction.class);
 
         kryo.register(BasicHitBox.class);
         kryo.register(HitBox.class);
