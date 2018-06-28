@@ -36,10 +36,13 @@ class CentralMenu {
     private Parent parent;
     private App app;
 
-    GridPane build(Parent parent, App app) {
-        GridPane menu = new GridPane();
-        this.app = app;
+    public CentralMenu(Parent parent, App app) {
         this.parent = parent;
+        this.app = app;
+    }
+
+    GridPane build() {
+        GridPane menu = new GridPane();
         createButtons();
 
         menu.setVgap(GAP);
@@ -77,7 +80,7 @@ class CentralMenu {
                 playOnline.changeStateDown();
                 animateScreenSwitch(event1 -> {
                     app.setAllowListeners(true);
-                    app.setCurrentScreen(GameScreen.SELECT_GAME);
+                    app.setCurrentScreen(GameScreen.CUSTOMIZE_GAME);
                 });
             }
         });
@@ -86,12 +89,12 @@ class CentralMenu {
     private void createPlayLocalListener(ButtonMaker playLocal) {
         this.playLocal.setOnMousePressed(event -> {
             if (app.isAllowListeners()) {
-                Music.play(Track.EXPLOSION, VOLUME);
-                playLocal.changeStateDown();
-                animateScreenSwitch(event1 -> {
-                    app.setAllowListeners(true);
-                    app.setCurrentScreen(GameScreen.CUSTOMIZE_GAME);
-                });
+//                Music.play(Track.EXPLOSION, VOLUME);
+//                playLocal.changeStateDown();
+//                animateScreenSwitch(event1 -> {
+//                    app.setAllowListeners(true);
+//                    app.setCurrentScreen(GameScreen.CUSTOMIZE_GAME);
+//                });
             }
         });
 
@@ -100,11 +103,11 @@ class CentralMenu {
     private void createRunEditorListener(ButtonMaker runEditor) {
         this.runEditor.setOnMousePressed(event -> {
             if (app.isAllowListeners()) {
-                Music.play(Track.EXPLOSION, VOLUME);
-                runEditor.changeStateDown();
-                animateScreenSwitch(event1 -> {
-                    app.setAllowListeners(true);
-                });
+//                Music.play(Track.EXPLOSION, VOLUME);
+//                runEditor.changeStateDown();
+//                animateScreenSwitch(event1 -> {
+//                    app.setAllowListeners(true);
+//                });
             }
         });
 
