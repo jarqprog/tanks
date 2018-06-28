@@ -9,14 +9,18 @@ import com.tanksDevs.system.entity.hitBox.HitBox;
 
 public class SimpleTank extends AbstractEntity implements Tank {
 
+    private double speed;
     private int hp;
     private boolean destroyed;
     private HitBox hitBox;
+    private Direction direction;
     private final Genre genre = Genre.TANK;
     private boolean isOccupied;
 
-    public SimpleTank(int id, double x, double y, double size) {
+    public SimpleTank(int id, double x, double y, double size, Direction direction) {
         super(id, x, y, size);
+        this.direction = direction;
+        this.speed = 3.0;
         this.hp = 5;
         this.destroyed = false;
         this.hitBox = new BasicHitBox(x, y, size);
@@ -24,6 +28,8 @@ public class SimpleTank extends AbstractEntity implements Tank {
 
     public SimpleTank(TankPojo tankPojo) {
         super(tankPojo.getId(), tankPojo.getX(), tankPojo.getY(), tankPojo.getSize());
+        this.direction = tankPojo.getDirection();
+        this.speed = tankPojo.getSpeed();
         this.hp = tankPojo.getHp();
         this.destroyed = (hp <= 0);
         this.isOccupied = tankPojo.getIsOccupied();
