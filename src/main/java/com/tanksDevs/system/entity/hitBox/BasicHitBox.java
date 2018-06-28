@@ -72,5 +72,3 @@ public class BasicHitBox implements HitBox {
         this.side = side;
     }
 }
-
-

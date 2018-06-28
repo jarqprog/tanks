@@ -7,5 +7,4 @@ public interface Entity {
     double getY();
     double getSize();
     Genre getGenre();
-
 }

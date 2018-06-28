@@ -5,11 +5,24 @@ import com.tanksDevs.system.entity.hitBox.HitBox;
 
 public class SimpleBullet extends AbstractEntity implements Bullet {
 
+    private Direction direction;
+    private double speed;
     private int hp;
     private boolean destroyed;
     private HitBox hitBox;
-    private final int START_BULLET_HP = 1;
-    private final Genre genre = Genre.BULLET;
+    private final static int START_BULLET_HP = 1;
+    private final static Genre genre = Genre.BULLET;
+
+    public SimpleBullet() {
+
+    }
+
+    public SimpleBullet(double x, double y, Direction direction) {
+        this.x = x;
+        this.y = y;
+        this.direction = direction;
+        this.speed = 1.0;
+    }
 
     public SimpleBullet(int id) {
         super(id);
@@ -34,6 +47,9 @@ public class SimpleBullet extends AbstractEntity implements Bullet {
     }
 
     @Override
+    public double getSpeed() {
+        return speed;
+
     public void decrementHp(int hitPoints) {
         hp -= hitPoints;
         if(hp <= 0){
@@ -52,13 +68,27 @@ public class SimpleBullet extends AbstractEntity implements Bullet {
     }
 
     @Override
-    public int getSpeed() {
-        return 0;
+    public Direction getDirection() {
+        return direction;
     }
 
     @Override
     public void move(Direction direction) {
-
+        this.direction = direction;
+        switch (direction) {
+            case NORTH:
+                y -= speed;
+                break;
+            case SOUTH:
+                y += speed;
+                break;
+            case EAST:
+                x += speed;
+                break;
+            case WEST:
+                x -= speed;
+                break;
+        }
     }
 
     @Override
@@ -75,5 +105,4 @@ public class SimpleBullet extends AbstractEntity implements Bullet {
     public HitBox getHitBox() {
         return hitBox;
     }
-
 }

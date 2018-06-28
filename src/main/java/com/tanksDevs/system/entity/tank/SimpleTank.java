@@ -27,10 +27,15 @@ public class SimpleTank extends AbstractEntity implements Tank {
         this.destroyed = (hp <= 0);
         this.hitBox = new BasicHitBox(tankPojo.getX(), tankPojo.getY(), tankPojo.getSize());
     }
+  
+    @Override
+    public double getSpeed() {
+        return 0;
+    }
 
     @Override
-    public int getSpeed() {
-        return 0;
+    public Direction getDirection() {
+        return null;
     }
 
     @Override
@@ -43,7 +48,6 @@ public class SimpleTank extends AbstractEntity implements Tank {
 
     }
 
-    @Override
     public boolean isCollision(Colliding other) {
         return hitBox.checkCollision(other.getHitBox());
     }
