@@ -48,7 +48,21 @@ public class SimpleTank extends AbstractEntity implements Tank {
 
     @Override
     public void move(Direction direction) {
-
+        this.direction = direction;
+        switch (direction) {
+            case NORTH:
+                setY( getY() - speed);
+                break;
+            case SOUTH:
+                setY( getY() + speed);
+                break;
+            case EAST:
+                setX( getX() + speed);
+                break;
+            case WEST:
+                setX( getX() - speed);
+                break;
+        }
     }
 
     @Override
