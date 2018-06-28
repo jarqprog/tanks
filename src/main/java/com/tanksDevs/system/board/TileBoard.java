@@ -45,6 +45,16 @@ public class TileBoard implements Board {
         copyTilesFromList(tiles);
     }
 
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
     private void copyTilesFromList(List<Tile> tiles) {
         for (Tile t : tiles) {
             setTile(t.getX(), t.getY(), t);

@@ -135,12 +135,15 @@ public class KryoServer implements GameServer {
 
             if (imported != null) {
                 this.game = imported;
+
                 Iterator<Tank> tanksIterator = game.getTanks().iterator();
                 while (tanksIterator.hasNext()) {
                     Tank tank = tanksIterator.next();
                     tanks.put(tank.getId(), tank);
                 }
             }
+
+            serverOut.putGame(game);
         }
     }
 
@@ -187,7 +190,9 @@ public class KryoServer implements GameServer {
             // gameplay loop
 
             System.out.println("========== tank 1 coordinate test ============");
-            System.out.println(game.getTanks().iterator().next().getX());
+            for (Map.Entry<Integer, Tank> pair : tanks.entrySet()) {
+                System.out.println(pair.getValue().getId() + ", Y:" + pair.getValue().getY());
+            }
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
             lastTime = now;
@@ -238,8 +243,8 @@ public class KryoServer implements GameServer {
     }
 
     private void update() {
-        for (Tank tank : game.getTanks()) {
-            tank.move(tank.getDirection());
-        }
+//        for (Tank tank : game.getTanks()) {
+//            tank.move(tank.getDirection());
+//        }
     }
 }

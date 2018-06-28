@@ -6,7 +6,11 @@ public interface TankBasePojo extends EntityPojo {
 
 
     int getHp();
+
     void setHp(int hp);
 
+    void setPlayerOwner(int owner);
+
+    int getPlayerOwner();
 
 }

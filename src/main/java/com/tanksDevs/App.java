@@ -47,7 +47,11 @@ public class App extends Application {
     }
 
     public void playMusic(Track track) {
-        if (mediaPlayer.getStatus() != MediaPlayer.Status.DISPOSED) {
+        if (mediaPlayer != null) {
+            if (mediaPlayer.getStatus() != MediaPlayer.Status.DISPOSED) {
+                mediaPlayer = Music.playMusic(track, VOLUME, true);
+            }
+        } else {
             mediaPlayer = Music.playMusic(track, VOLUME, true);
         }
     }

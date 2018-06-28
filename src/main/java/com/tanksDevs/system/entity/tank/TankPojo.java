@@ -7,13 +7,25 @@ import com.tanksDevs.system.pojo.EntityPojo;
 public interface TankPojo extends EntityPojo {
 
     Direction getDirection();
+
     void setDirection(Direction direction);
+
     double getSpeed();
-    void  setSpeed(double speed);
+
+    void setSpeed(double speed);
+
     int getHp();
+
     void setHp(int hp);
+
     boolean getIsOccupied();
+
     void setIsOccupied(boolean isOccupied);
+
+    void setPlayerOwner(int owner);
+
+    int getPlayerOwner();
+
     TankBasePojo getTankBasePojo();
     void setTankBasePojo(TankBasePojo tankBasePojo);
 }

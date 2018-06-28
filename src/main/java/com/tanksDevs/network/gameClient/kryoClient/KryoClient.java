@@ -13,11 +13,14 @@ import com.tanksDevs.network.parser.PojoParser;
 import com.tanksDevs.network.states.GlobalState;
 import com.tanksDevs.network.states.LocalState;
 import com.tanksDevs.network.states.TankState;
+import com.tanksDevs.system.GUI.Renderer;
 import com.tanksDevs.system.entity.tank.Tank;
 import com.tanksDevs.system.game.Game;
 import com.tanksDevs.system.player.Player;
+import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class KryoClient implements GameClient {
@@ -42,13 +45,15 @@ public class KryoClient implements GameClient {
     private ClientOut clientOut;
     private Game game;
     private Tank tank;
+    private Stage stage;
+    private Renderer renderer;
+    private ArrayList<String> input;
 
-
-    public static GameClient createKryoClient(ClientSupplier clientSupplier) {
-        return new KryoClient(clientSupplier);
+    public static GameClient createKryoClient(ClientSupplier clientSupplier, Stage stage) {
+        return new KryoClient(clientSupplier, stage);
     }
 
-    private KryoClient(ClientSupplier clientSupplier) {
+    private KryoClient(ClientSupplier clientSupplier, Stage stage) {
         this.parser = clientSupplier.getParser();
         this.portTCP = clientSupplier.getPortTCP();
         this.portUDP = clientSupplier.getPortUDP();
@@ -61,7 +66,7 @@ public class KryoClient implements GameClient {
         this.server = clientSupplier.getGameServer();
         this.client = new Client();
         this.kryo = client.getKryo();
-
+        this.stage = stage;
     }
 
     @Override
@@ -112,7 +117,8 @@ public class KryoClient implements GameClient {
         }
 
         this.game = imported;
-
+        this.renderer = new Renderer(stage, game);
+        initInputEvents();
         Tank myTank;
 
         // todo ;0)
@@ -168,17 +174,19 @@ public class KryoClient implements GameClient {
         boolean hasWinner = false;
         int counter = 0;
 
+        long lastTime = System.nanoTime();
+        double tickRate = 60.0;
+        double ns = 1000000000 / tickRate;
+        double delta = 0;
+
         while (! hasWinner ) {
 
 
             LocalState localState = new TankState();
             localState.setTankId(tank.getId());
 
-            if (counter % 2 == 0) {
-                localState.setUserInput(UserInput.DOWN);
-            } else {
-                localState.setUserInput(UserInput.UP);
-            }
+            // sendind inputs
+            localState.setUserInput(getInput());
 
             clientOut.putLocalState(localState);
 
@@ -198,9 +206,56 @@ public class KryoClient implements GameClient {
                 hasWinner = true;
             }
 
+            long now = System.nanoTime();
+            delta += (now - lastTime) / ns;
+            lastTime = now;
+
+            while(delta >= 1) {
+                update(globalState);
+                renderer.render();
+                delta -= 1;
+            }
         }
 
         System.out.println("End CLIENT game loop");
+    }
+
+    private void update(GlobalState globalState) {
+        // TODO update game entities
+    }
+
+    private UserInput getInput() {
+        if (input.contains("W")) {
+            return UserInput.UP;
+        } else if (input.contains("S")) {
+            return UserInput.DOWN;
+        } else if (input.contains("A")) {
+            return UserInput.LEFT;
+        } else if (input.contains("D")) {
+            return UserInput.RIGHT;
+        } else if (input.contains("K")) {
+            return UserInput.SHOOT;
+        } else {
+            return UserInput.NOTHING;
+        }
+    }
+
+    private void initInputEvents() {
+
+        input = new ArrayList<String>();
+
+        renderer.getScene().setOnKeyPressed(
+                e -> {
+                    String code = e.getCode().toString();
+                    if ( !input.contains(code) )
+                        input.add( code );
+                });
+
+        renderer.getScene().setOnKeyReleased(
+                e -> {
+                    String code = e.getCode().toString();
+                    input.remove( code );
+                });
     }
 
     private void registerClasses() {

@@ -11,7 +11,7 @@ public class SimpleTankPojo extends AbstractEntityPojo implements TankPojo {
     private int hp;
     private boolean isOccupied;
     private TankBasePojo tankBasePojo;
-
+    private int playerOwner;
 
     @Override
     public Direction getDirection() {
@@ -51,6 +51,16 @@ public class SimpleTankPojo extends AbstractEntityPojo implements TankPojo {
     @Override
     public void setIsOccupied(boolean isOccupied) {
         this.isOccupied = isOccupied;
+    }
+
+    @Override
+    public void setPlayerOwner(int playerOwner) {
+        this.playerOwner = playerOwner;
+    }
+
+    @Override
+    public int getPlayerOwner() {
+        return playerOwner;
     }
 
     @Override
