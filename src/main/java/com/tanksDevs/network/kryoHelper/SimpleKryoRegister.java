@@ -1,6 +1,8 @@
 package com.tanksDevs.network.kryoHelper;
 
 import com.esotericsoftware.kryo.Kryo;
+import com.tanksDevs.network.input.UserInput;
+import com.tanksDevs.network.states.ServerState;
 import com.tanksDevs.network.states.TankState;
 import com.tanksDevs.system.entity.Colliding;
 import com.tanksDevs.system.entity.Direction;
@@ -52,6 +54,8 @@ public class SimpleKryoRegister implements KryoRegister {
 
         kryo.register(SimpleBullet.class);
         kryo.register(TankState.class);
+        kryo.register(UserInput.class);
+        kryo.register(ServerState.class);
 
     }
 }

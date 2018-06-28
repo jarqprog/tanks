@@ -73,7 +73,9 @@ public class KryoClient implements GameClient {
             e.printStackTrace();
         }
 
-        executeGameLoop();
+        if (tank != null) {
+            executeGameLoop();
+        }
     }
 
 
@@ -132,11 +134,23 @@ public class KryoClient implements GameClient {
 
 
 
-    private void setupInOut() throws IOException {
+    private void setupInOut() {
 
-        int TIMEOUT = 5000;
+
+        int TIMEOUT = 10000;
         client.start();
-        client.connect(TIMEOUT, ipAddress, portTCP, portUDP);
+
+        boolean notConnected = true;
+        while (notConnected) {
+
+            try {
+                wait(largeTimeWindow);
+                client.connect(TIMEOUT, ipAddress, portTCP, portUDP);
+                notConnected = false;
+            } catch (IOException | InterruptedException notUsed) {
+                System.out.println("Connection failure");
+            }
+        }
 
         System.out.println("Client connected!");
 
@@ -161,6 +175,7 @@ public class KryoClient implements GameClient {
             // send GlobalState
 
             LocalState localState = new TankState();
+
             localState.setTankId(tank.getId());
 
             if (counter % 2 == 0) {

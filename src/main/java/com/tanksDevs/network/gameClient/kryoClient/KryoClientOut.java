@@ -43,6 +43,8 @@ public class KryoClientOut implements ClientOut {
         prepare();
         handleGame();
 
+        client.close();
+
     }
 
     @Override

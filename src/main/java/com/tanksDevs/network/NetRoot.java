@@ -44,13 +44,13 @@ public class NetRoot implements Root {
         int portTCP = 9999;
         int portUDP = 9900;
         int largeTimeWindow = 500;
-        int shortTimeWindow = 5;
+        int shortTimeWindow = 12;
 //        String ipAddress = "192.168.11.70"; // Adam
 //        String ipAddress = "192.168.10.244"; // Jarek
         String ipAddress = "192.168.10.242"; // Michal
+
         String userChoice = "";
 
-        boolean isReady = false;
         Scanner sc = new Scanner(System.in);
 
         while ( userChoice.length() == 0 ) {
@@ -94,8 +94,6 @@ public class NetRoot implements Root {
             clientSupplier = KryoClientSupplier
                     .create(portTCP, portUDP, largeTimeWindow, shortTimeWindow, ipAddress, parser,
                             kryoRegister, player);
-
-            clientSupplier.registerServer(gameServer);
 
             clientSupplier.registerServer(gameServer);
 

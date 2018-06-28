@@ -86,33 +86,21 @@ public class KryoClientIn implements ClientIn {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
-
     }
 
     private synchronized void handleGame() {
 
-        while (! shouldStop ) {
+        if (globalState == null) {
+            client.addListener(new Listener() {
 
-            if (globalState == null) {
-                client.addListener(new Listener() {
+                public void received(Connection connection, Object object) {
+                    if (object instanceof GlobalState) {
 
-                    public void received(Connection connection, Object object) {
-                        if (object instanceof GlobalState) {
-
-                            globalState = (GlobalState) object;
-                        }
+                        globalState = (GlobalState) object;
                     }
-                });
-            }
-
-            try {
-                wait(shortTimeWindow);  // todo docelowo można zrobić bez argumentu i użyć notify all u Clienta
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+                }
+            });
         }
 
     }
