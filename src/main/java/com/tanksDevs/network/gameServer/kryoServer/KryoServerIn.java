@@ -9,6 +9,13 @@ import com.tanksDevs.network.states.LocalState;
 import com.tanksDevs.system.game.Game;
 import com.tanksDevs.system.game.GamePojo;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.stream.Collectors;
+
 public class KryoServerIn implements ServerIn {
 
 
@@ -19,9 +26,9 @@ public class KryoServerIn implements ServerIn {
     private boolean shouldStop;  // if true - stop thread
     private boolean shouldStopPreparation;
 
-
     private Game game;
-    private LocalState localState;
+    private final Queue<LocalState> stateStorage = new ConcurrentLinkedQueue<>();
+
 
 
     public static ServerIn getInstance(Server server, PojoParser pojoParser,
@@ -39,7 +46,17 @@ public class KryoServerIn implements ServerIn {
 
     @Override
     public LocalState getLocalState() {
-        return localState;
+        return stateStorage.poll();
+    }
+
+    @Override
+    public Collection<LocalState> getLocalStates() {
+        List<LocalState> toReturn = stateStorage
+                .parallelStream()
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        stateStorage.clear();
+        return toReturn;
     }
 
     @Override
@@ -51,6 +68,7 @@ public class KryoServerIn implements ServerIn {
     public void run() {
 
         prepare();
+        handleGame();
 
     }
 
@@ -84,6 +102,27 @@ public class KryoServerIn implements ServerIn {
             } catch (Exception e) {
                 e.printStackTrace();
 
+            }
+        }
+    }
+
+    private synchronized void handleGame() {
+
+        while (! shouldStop ) {
+
+            server.addListener(new Listener() {
+
+                public void received (Connection connection, Object object) {
+                if (object instanceof LocalState) {
+                    stateStorage.add( (LocalState) object );
+                }
+                }
+            });
+
+            try {
+                wait(shortTimeWindow);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }

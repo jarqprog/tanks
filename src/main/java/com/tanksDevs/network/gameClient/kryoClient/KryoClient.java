@@ -2,14 +2,17 @@ package com.tanksDevs.network.gameClient.kryoClient;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import com.tanksDevs.network.gameClient.ClientSupplier;
 import com.tanksDevs.network.gameClient.GameClient;
 import com.tanksDevs.network.gameServer.GameServer;
 import com.tanksDevs.network.gameClient.InOut.ClientIn;
 import com.tanksDevs.network.gameClient.InOut.ClientOut;
+import com.tanksDevs.network.input.UserInput;
 import com.tanksDevs.network.kryoHelper.KryoRegister;
 import com.tanksDevs.network.parser.PojoParser;
+import com.tanksDevs.network.states.GlobalState;
+import com.tanksDevs.network.states.LocalState;
+import com.tanksDevs.network.states.TankState;
 import com.tanksDevs.system.entity.tank.Tank;
 import com.tanksDevs.system.game.Game;
 import com.tanksDevs.system.player.Player;
@@ -38,6 +41,7 @@ public class KryoClient implements GameClient {
     private ClientIn clientIn;
     private ClientOut clientOut;
     private Game game;
+    private Tank tank;
 
 
     public static GameClient createKryoClient(ClientSupplier clientSupplier) {
@@ -100,7 +104,7 @@ public class KryoClient implements GameClient {
         while ( imported == null ) {
             imported = clientIn.getGame();
 
-            wait(200);
+            wait(largeTimeWindow);
         }
 
         this.game = imported;
@@ -114,6 +118,7 @@ public class KryoClient implements GameClient {
 
                 myTank.markAsOccupied();
                 player.setTank(myTank);
+                tank = myTank;
                 clientIn.stopPreparation();
                 game.registerPlayer(player);
                 break;
@@ -124,6 +129,7 @@ public class KryoClient implements GameClient {
 
         System.out.println("Player registered, tank is chosen");
     }
+
 
 
     private void setupInOut() throws IOException {
@@ -142,6 +148,48 @@ public class KryoClient implements GameClient {
     private void executeGameLoop() {
 
         System.out.println("Client game loop");
+
+        // temporary pseudo loop ;)
+
+
+        boolean hasWinner = false;
+        int counter = 0;
+
+        while (! hasWinner ) {
+
+
+            // send GlobalState
+
+            LocalState localState = new TankState();
+            localState.setTankId(tank.getId());
+
+            if (counter % 2 == 0) {
+                localState.setUserInput(UserInput.DOWN);
+            } else {
+                localState.setUserInput(UserInput.UP);
+            }
+
+            clientOut.putLocalState(localState);
+
+            counter++;
+
+            try {
+                wait(shortTimeWindow);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            GlobalState globalState = clientIn.getGlobalState();
+            System.out.println("Global state, client.. " + globalState);
+
+            if (counter > 100000) {
+                hasWinner = true;
+            }
+
+        }
+
+
+        System.out.println("End CLIENT game loop");
 
     }
 

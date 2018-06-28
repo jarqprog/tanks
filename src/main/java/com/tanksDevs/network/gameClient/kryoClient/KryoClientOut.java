@@ -41,6 +41,7 @@ public class KryoClientOut implements ClientOut {
     public void run() {
 
         prepare();
+        handleGame();
 
     }
 
@@ -76,6 +77,23 @@ public class KryoClientOut implements ClientOut {
 
             try {
                 wait(largeTimeWindow);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private synchronized void handleGame() {
+
+        while (! shouldStop ) {
+
+            if (localState != null) {
+                client.sendUDP( localState );
+                localState = null;
+            }
+
+            try {
+                wait(shortTimeWindow);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
