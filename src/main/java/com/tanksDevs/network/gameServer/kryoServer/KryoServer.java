@@ -6,17 +6,19 @@ import com.tanksDevs.network.gameServer.GameServer;
 import com.tanksDevs.network.gameServer.InOut.ServerIn;
 import com.tanksDevs.network.gameServer.InOut.ServerOut;
 import com.tanksDevs.network.gameServer.ServerSupplier;
+import com.tanksDevs.network.input.UserInput;
 import com.tanksDevs.network.kryoHelper.KryoRegister;
 import com.tanksDevs.network.parser.PojoParser;
 import com.tanksDevs.network.states.GlobalState;
 import com.tanksDevs.network.states.LocalState;
 import com.tanksDevs.network.states.ServerState;
+import com.tanksDevs.system.entity.Direction;
+import com.tanksDevs.system.entity.tank.Tank;
 import com.tanksDevs.system.game.Game;
 import com.tanksDevs.system.player.Player;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class KryoServer implements GameServer {
 
@@ -35,6 +37,8 @@ public class KryoServer implements GameServer {
     private ServerIn serverIn;
     private ServerOut serverOut;
 
+    private Map<Integer, Tank> tanks;
+
     public static GameServer createKryoServer(ServerSupplier serverSupplier) {
         return new KryoServer(serverSupplier);
     }
@@ -52,6 +56,7 @@ public class KryoServer implements GameServer {
         this.kryo = server.getKryo();
         this.players = new HashSet<>();
         this.game = serverSupplier.getGame();
+        this.tanks = new HashMap<>();
 
     }
 
@@ -133,6 +138,11 @@ public class KryoServer implements GameServer {
 
             serverOut.putGame(game);
 
+            Iterator<Tank> tanksIterator = game.getTanks().iterator();
+            while (tanksIterator.hasNext()) {
+                Tank tank = tanksIterator.next();
+                tanks.put(tank.getId(), tank);
+            }
         }
 
     }
@@ -147,8 +157,12 @@ public class KryoServer implements GameServer {
         boolean hasWinner = false;
         int counter = 0;
 
-        while (! hasWinner ) {
+        long lastTime = System.nanoTime();
+        double tickRate = 60.0;
+        double ns = 1000000000 / tickRate;
+        double delta = 0;
 
+        while (! hasWinner ) {
 
             // send GlobalState
 
@@ -172,6 +186,19 @@ public class KryoServer implements GameServer {
                 hasWinner = true;
             }
 
+            // gameplay loop
+
+            System.out.println("========== tank 1 coordinate test ============");
+            System.out.println(game.getTanks().iterator().next().getX());
+            long now = System.nanoTime();
+            delta += (now - lastTime) / ns;
+            lastTime = now;
+
+            while(delta >= 1) {
+                handleInputs(localState);
+                update();
+                delta -= 1;
+            }
         }
 
 
@@ -181,5 +208,37 @@ public class KryoServer implements GameServer {
 
     private void registerClasses() {
         kryoRegister.register(kryo);
+    }
+
+    private void handleInputs(LocalState localState) {
+
+        Tank tank = tanks.get(localState.getTankId());
+
+        switch(localState.getUserInput()) {
+            case UP:
+                tank.move(Direction.NORTH);
+                break;
+            case DOWN:
+                tank.move(Direction.SOUTH);
+                break;
+            case LEFT:
+                tank.move(Direction.WEST);
+                break;
+            case RIGHT:
+                tank.move(Direction.EAST);
+                break;
+            case SHOOT:
+                // TODO shoot
+                break;
+            case NOTHING:
+                // TODO ???
+                break;
+        }
+    }
+
+    private void update() {
+        for (Tank tank : game.getTanks()) {
+            tank.move(tank.getDirection());
+        }
     }
 }
