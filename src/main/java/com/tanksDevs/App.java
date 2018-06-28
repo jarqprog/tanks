@@ -62,6 +62,10 @@ public class App extends Application {
         }
     }
 
+    public Stage getStage() {
+        return stage;
+    }
+
     private void animateScene(Scene scene) {
         allowListeners = false;
         FadeTransition fadeTransition = FadeAnimation.set(scene.getRoot(), INITIAL_ALPHA, FINAL_ALPHA, ANIMATION_DURATION);
