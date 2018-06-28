@@ -108,7 +108,7 @@ public class KryoServerIn implements ServerIn {
 
     private synchronized void handleGame() {
 
-        while (! shouldStop ) {
+//        while (! shouldStop ) {
 
             server.addListener(new Listener() {
 
@@ -119,11 +119,11 @@ public class KryoServerIn implements ServerIn {
                 }
             });
 
-            try {
-                wait(shortTimeWindow);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+//            try {
+//                wait(shortTimeWindow);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 }

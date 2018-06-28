@@ -93,7 +93,7 @@ public class KryoClientIn implements ClientIn {
 
     private synchronized void handleGame() {
 
-        while (! shouldStop ) {
+//        while (! shouldStop ) {
 
             if (globalState == null) {
                 client.addListener(new Listener() {
@@ -106,14 +106,14 @@ public class KryoClientIn implements ClientIn {
                     }
                 });
             }
+//
+//            try {
+//                wait(shortTimeWindow);  // todo docelowo można zrobić bez argumentu i użyć notify all u Clienta
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
 
-            try {
-                wait(shortTimeWindow);  // todo docelowo można zrobić bez argumentu i użyć notify all u Clienta
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
+//        }
 
     }
 

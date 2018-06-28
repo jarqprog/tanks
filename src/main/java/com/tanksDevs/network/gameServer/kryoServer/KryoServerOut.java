@@ -59,6 +59,8 @@ public class KryoServerOut implements ServerOut {
         prepare();
         handleGame();
 
+        server.close();
+
     }
 
     private synchronized void prepare() {
@@ -81,6 +83,7 @@ public class KryoServerOut implements ServerOut {
         while (! shouldStop ) {
 
             if (globalState != null) {
+
                 server.sendToAllUDP( globalState );
                 globalState = null;
             }
