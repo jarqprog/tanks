@@ -2,6 +2,7 @@ package com.tanksDevs.system.entity.tank;
 
 import com.tanksDevs.system.entity.Colliding;
 import com.tanksDevs.system.entity.Direction;
+import com.tanksDevs.system.entity.Genre;
 import com.tanksDevs.system.entity.hitBox.HitBox;
 
 public class PlayerTank implements Tank {
@@ -37,6 +38,31 @@ public class PlayerTank implements Tank {
     @Override
     public double getY() {
         return y;
+    }
+
+    @Override
+    public double getSize() {
+        return 0;
+    }
+
+    @Override
+    public void setX(double x) {
+
+    }
+
+    @Override
+    public void setY(double y) {
+
+    }
+
+    @Override
+    public void setSize(double size) {
+
+    }
+
+    @Override
+    public Genre getGenre() {
+        return null;
     }
 
     @Override
@@ -95,6 +121,21 @@ public class PlayerTank implements Tank {
 
     @Override
     public void stop() {
+
+    }
+
+    @Override
+    public int cooldown() {
+        return 0;
+    }
+
+    @Override
+    public boolean hasPlayer() {
+        return false;
+    }
+
+    @Override
+    public void markAsOccupied() {
 
     }
 }
