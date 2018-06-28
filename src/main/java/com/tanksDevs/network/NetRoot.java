@@ -22,6 +22,7 @@ import com.tanksDevs.system.game.Game;
 import com.tanksDevs.system.game.SimpleGame;
 import com.tanksDevs.system.player.Player;
 import com.tanksDevs.system.player.User;
+import javafx.stage.Stage;
 
 import java.util.HashSet;
 import java.util.Scanner;
@@ -38,7 +39,7 @@ public class NetRoot implements Root {
     private NetRoot() {}
 
     @Override
-    public void start() {
+    public void start(Stage stage) {
 
         // scenario: running server as client's thread
 
@@ -111,7 +112,7 @@ public class NetRoot implements Root {
         }
 
 
-        GameClient gameClient = KryoClient.createKryoClient(clientSupplier);
+        GameClient gameClient = KryoClient.createKryoClient(clientSupplier, stage);
 
         gameClient.runClient();
     }
