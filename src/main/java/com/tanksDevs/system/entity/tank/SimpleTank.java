@@ -13,6 +13,7 @@ public class SimpleTank extends AbstractEntity implements Tank {
     private boolean destroyed;
     private HitBox hitBox;
     private final Genre genre = Genre.TANK;
+    private boolean isOccupied;
 
     public SimpleTank(int id, double x, double y, double size) {
         super(id, x, y, size);
@@ -21,10 +22,11 @@ public class SimpleTank extends AbstractEntity implements Tank {
         this.hitBox = new BasicHitBox(x, y, size);
     }
 
-    public SimpleTank(TankPojo tankPojo){
+    public SimpleTank(TankPojo tankPojo) {
         super(tankPojo.getId(), tankPojo.getX(), tankPojo.getY(), tankPojo.getSize());
         this.hp = tankPojo.getHp();
         this.destroyed = (hp <= 0);
+        this.isOccupied = tankPojo.getIsOccupied();
         this.hitBox = new BasicHitBox(tankPojo.getX(), tankPojo.getY(), tankPojo.getSize());
     }
 
@@ -78,12 +80,12 @@ public class SimpleTank extends AbstractEntity implements Tank {
 
     @Override
     public boolean hasPlayer() {
-        return false;
+        return isOccupied;
     }
 
     @Override
     public void markAsOccupied() {
-
+        this.isOccupied = true;
     }
 
     @Override

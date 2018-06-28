@@ -18,19 +18,19 @@ public class KryoClientIn implements ClientIn {
     private GlobalState globalState;
     private boolean shouldStop;  // if true - stop thread
     private boolean shouldStopPreparation;
-    private int LONG_WAIT_LENGTH = 1000;
-    private int SHORT_WAIT_LENGTH = 10;
+    private final int largeTimeWindow;
+    private final int shortTimeWindow;
 
 
-    public static ClientIn getInstance(Client client, PojoParser pojoParser) {
-        return new KryoClientIn(client, pojoParser);
+    public static ClientIn getInstance(Client client, PojoParser pojoParser, int largeTimeWindow, int shortTimeWindow) {
+        return new KryoClientIn(client, pojoParser, largeTimeWindow, shortTimeWindow);
     }
 
-
-
-    private KryoClientIn(Client client, PojoParser pojoParser) {
+    private KryoClientIn(Client client, PojoParser pojoParser, int largeTimeWindow, int shortTimeWindow) {
         this.client = client;
         this.pojoParser = pojoParser;
+        this.largeTimeWindow = largeTimeWindow;
+        this.shortTimeWindow = shortTimeWindow;
     }
 
     @Override
@@ -67,22 +67,21 @@ public class KryoClientIn implements ClientIn {
     private synchronized void prepare() {
 
         while (! shouldStopPreparation ) {
-            try {
+
             if (game == null) {
-                System.out.println("deser!! clientIn");
                 client.addListener(new Listener() {
 
                     public void received(Connection connection, Object object) {
-                        if (object instanceof GamePojo) {
+                    if (object instanceof GamePojo) {
 
-                            game = pojoParser.parse( (GamePojo) object );
-                        }
+                        game = pojoParser.parse( (GamePojo) object );
+                    }
                     }
                 });
             }
 
-
-                wait(LONG_WAIT_LENGTH);
+            try {
+                wait(largeTimeWindow);
             } catch (Exception e) {
                 e.printStackTrace();
             }

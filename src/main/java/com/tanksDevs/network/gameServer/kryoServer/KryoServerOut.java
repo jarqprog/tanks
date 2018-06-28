@@ -13,19 +13,22 @@ public class KryoServerOut implements ServerOut {
 
     private boolean shouldStop;  // if true - stop thread
     private boolean shouldStopPreparation;
-    private int LONG_WAIT_LENGTH = 2000;
-    private int SHORT_WAIT_LENGTH = 10;
+    private final int largeTimeWindow;
+    private final int shortTimeWindow;
 
     private Game game;
     private GlobalState globalState;
 
-    public static ServerOut getInstance(Server server, PojoParser pojoParser) {
-        return new KryoServerOut(server, pojoParser);
+    public static ServerOut getInstance(Server server, PojoParser pojoParser,
+                                        int largeTimeWindow, int shortTimeWindow) {
+        return new KryoServerOut(server, pojoParser, largeTimeWindow, shortTimeWindow);
     }
 
-    private KryoServerOut(Server server, PojoParser pojoParser) {
+    private KryoServerOut(Server server, PojoParser pojoParser, int largeTimeWindow, int shortTimeWindow) {
         this.server = server;
         this.pojoParser = pojoParser;
+        this.largeTimeWindow = largeTimeWindow;
+        this.shortTimeWindow = shortTimeWindow;
     }
 
     @Override
@@ -36,7 +39,6 @@ public class KryoServerOut implements ServerOut {
 
     @Override
     public void putGame(Game game) {
-
         this.game = game;
 
     }
@@ -66,7 +68,7 @@ public class KryoServerOut implements ServerOut {
                 server.sendToAllTCP( pojoParser.parse(game) );
             }
             try {
-                wait(LONG_WAIT_LENGTH);
+                wait(largeTimeWindow);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

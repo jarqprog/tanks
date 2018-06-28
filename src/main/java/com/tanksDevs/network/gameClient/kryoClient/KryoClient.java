@@ -2,31 +2,19 @@ package com.tanksDevs.network.gameClient.kryoClient;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import com.tanksDevs.network.gameClient.ClientSupplier;
 import com.tanksDevs.network.gameClient.GameClient;
 import com.tanksDevs.network.gameServer.GameServer;
 import com.tanksDevs.network.gameClient.InOut.ClientIn;
 import com.tanksDevs.network.gameClient.InOut.ClientOut;
-import com.tanksDevs.network.parser.NaivePojoParser;
+import com.tanksDevs.network.kryoHelper.KryoRegister;
 import com.tanksDevs.network.parser.PojoParser;
-import com.tanksDevs.system.entity.Colliding;
-import com.tanksDevs.system.entity.Genre;
-import com.tanksDevs.system.entity.bullet.SimpleBullet;
-import com.tanksDevs.system.entity.forest.SimpleForest;
-import com.tanksDevs.system.entity.forest.SimpleForestPojo;
-import com.tanksDevs.system.entity.hitBox.BasicHitBox;
-import com.tanksDevs.system.entity.hitBox.HitBox;
-import com.tanksDevs.system.entity.tank.SimpleTank;
-import com.tanksDevs.system.entity.tank.SimpleTankPojo;
 import com.tanksDevs.system.entity.tank.Tank;
 import com.tanksDevs.system.game.Game;
-import com.tanksDevs.system.game.SimpleGame;
-import com.tanksDevs.system.game.SimpleGamePojo;
 import com.tanksDevs.system.player.Player;
-import com.tanksDevs.system.player.UserPojo;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Iterator;
 
 public class KryoClient implements GameClient {
@@ -40,8 +28,12 @@ public class KryoClient implements GameClient {
     private final GameServer server;
     private final Player player;
     private final PojoParser parser;
+    private final KryoRegister kryoRegister;
     private final Client client;
     private final Kryo kryo;
+
+    private final int largeTimeWindow;
+    private final int shortTimeWindow;
 
     private ClientIn clientIn;
     private ClientOut clientOut;
@@ -56,12 +48,16 @@ public class KryoClient implements GameClient {
         this.parser = clientSupplier.getParser();
         this.portTCP = clientSupplier.getPortTCP();
         this.portUDP = clientSupplier.getPortUDP();
+        this.largeTimeWindow = clientSupplier.getLargeTimeWindow();
+        this.shortTimeWindow = clientSupplier.getShortTimeWindow();
         this.ipAddress = clientSupplier.getIpAddress();
         this.clientSupplier = clientSupplier;
+        this.kryoRegister = clientSupplier.getKryoRegister();
         this.player = clientSupplier.getPlayer();
         this.server = clientSupplier.getGameServer();
         this.client = new Client();
         this.kryo = client.getKryo();
+
     }
 
     @Override
@@ -71,7 +67,6 @@ public class KryoClient implements GameClient {
             prepareGame();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            System.out.println("Problem occurred, exiting program!");
         }
 
         executeGameLoop();
@@ -105,34 +100,29 @@ public class KryoClient implements GameClient {
         while ( imported == null ) {
             imported = clientIn.getGame();
 
-
             wait(200);
-
         }
 
         this.game = imported;
 
-        System.out.println("Client, I've game! " + game);
-
-        game.registerPlayer(player);
         Tank myTank;
 
         // todo ;0)
         for (Iterator<Tank> it = game.getTanks().iterator(); it.hasNext(); ) {
             myTank = it.next();
             if (! myTank.hasPlayer() ) {
+
                 myTank.markAsOccupied();
                 player.setTank(myTank);
                 clientIn.stopPreparation();
+                game.registerPlayer(player);
                 break;
             }
         }
 
+        this.clientOut.putGame(game);
+
         System.out.println("Player registered, tank is chosen");
-
-
-
-
     }
 
 
@@ -156,35 +146,7 @@ public class KryoClient implements GameClient {
     }
 
     private void registerClasses() {
-        kryo.register(SimpleGamePojo.class);
-
-
-        kryo.register(Genre.class);
-
-        kryo.register(SimpleGamePojo.class);
-        kryo.register(SimpleTankPojo.class);
-
-
-        kryo.register(SimpleForest.class);
-        kryo.register(SimpleForestPojo.class);
-        kryo.register(SimpleGame.class);
-        kryo.register(HashSet.class);
-
-        kryo.register(Tank.class);
-        kryo.register(SimpleTank.class);
-        kryo.register(SimpleTankPojo.class);
-
-        kryo.register(Player.class);
-        kryo.register(UserPojo.class);
-
-        kryo.register(BasicHitBox.class);
-        kryo.register(HitBox.class);
-
-        kryo.register(Colliding.class);
-
-
-        kryo.register(SimpleBullet.class);
-
+        kryoRegister.register(kryo);
     }
 
 }

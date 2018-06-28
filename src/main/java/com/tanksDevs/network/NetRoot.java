@@ -9,6 +9,8 @@ import com.tanksDevs.network.gameServer.GameServer;
 import com.tanksDevs.network.gameServer.ServerSupplier;
 import com.tanksDevs.network.gameServer.kryoServer.KryoServer;
 import com.tanksDevs.network.gameServer.kryoServer.KryoServerSupplier;
+import com.tanksDevs.network.kryoHelper.KryoRegister;
+import com.tanksDevs.network.kryoHelper.SimpleKryoRegister;
 import com.tanksDevs.network.parser.NaivePojoParser;
 import com.tanksDevs.network.parser.PojoParser;
 import com.tanksDevs.system.entity.Colliding;
@@ -19,7 +21,6 @@ import com.tanksDevs.system.game.SimpleGame;
 import com.tanksDevs.system.player.Player;
 import com.tanksDevs.system.player.User;
 
-import java.net.UnknownHostException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,16 +35,19 @@ public class NetRoot implements Root {
     private NetRoot() {}
 
     @Override
-    public void start() throws UnknownHostException {
+    public void start() {
 
         // scenario: running server as client's thread
 
         int portTCP = 9999;
         int portUDP = 9900;
+        int largeTimeWindow = 500;
+        int shortTimeWindow = 5;
         String ipAddress = "127.0.0.1";
 
         PojoParser parser = new NaivePojoParser();
-        Player player = new User("Adam", null);
+        KryoRegister kryoRegister = SimpleKryoRegister.create();
+        Player player = new User("Adam");
 
         Set<Colliding> collidings = new HashSet<>();
         Set<Tank> tanks = new HashSet<>();
@@ -59,22 +63,21 @@ public class NetRoot implements Root {
 
         Game game = new SimpleGame(collidings, tanks);
 
-        ServerSupplier serverSupplier = new KryoServerSupplier(portTCP, portUDP, ipAddress, parser);
+        ServerSupplier serverSupplier = KryoServerSupplier
+                .create(portTCP, portUDP, largeTimeWindow, shortTimeWindow, ipAddress, parser, kryoRegister);
         serverSupplier.setGame(game);
 
         GameServer gameServer = KryoServer.createKryoServer(serverSupplier);
 
+        ClientSupplier clientSupplier = KryoClientSupplier
+                .create(portTCP, portUDP, largeTimeWindow, shortTimeWindow, ipAddress, parser,
+                kryoRegister, player);
 
-        ClientSupplier clientSupplier = new KryoClientSupplier(portTCP, portUDP, ipAddress, parser, player);
         clientSupplier.registerServer(gameServer);
 
         GameClient gameClient = KryoClient.createKryoClient(clientSupplier);
 
         gameClient.runClient();
-
-
     }
-
-
 
 }
