@@ -6,8 +6,6 @@ public class BrickWallPojo extends AbstractEntityPojo implements DestroyableWall
 
     private int hp;
 
-    public BrickWallPojo() {}
-
     @Override
     public int getHp() {
         return hp;

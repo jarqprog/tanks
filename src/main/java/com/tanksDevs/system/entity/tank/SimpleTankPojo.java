@@ -12,7 +12,6 @@ public class SimpleTankPojo extends AbstractEntityPojo implements TankPojo {
     private boolean isOccupied;
     private TankBasePojo tankBasePojo;
 
-    public SimpleTankPojo() {}
 
     @Override
     public Direction getDirection() {

@@ -69,7 +69,7 @@ public class KryoClient implements GameClient {
 
         try {
             prepareGame();
-        } catch (IOException | InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -79,7 +79,7 @@ public class KryoClient implements GameClient {
     }
 
 
-    private synchronized void prepareGame() throws IOException, InterruptedException {
+    private synchronized void prepareGame() throws InterruptedException {
 
         registerClasses();
 
@@ -104,9 +104,11 @@ public class KryoClient implements GameClient {
         Game imported = null;
 
         while ( imported == null ) {
-            imported = clientIn.getGame();
+            this.clientOut.putGame(game);
 
             wait(largeTimeWindow);
+
+            imported = clientIn.getGame();
         }
 
         this.game = imported;
@@ -123,16 +125,13 @@ public class KryoClient implements GameClient {
                 tank = myTank;
                 clientIn.stopPreparation();
                 game.registerPlayer(player);
+                clientOut.putGame(game);
                 break;
             }
         }
 
-        this.clientOut.putGame(game);
-
         System.out.println("Player registered, tank is chosen");
     }
-
-
 
     private void setupInOut() {
 
@@ -172,10 +171,7 @@ public class KryoClient implements GameClient {
         while (! hasWinner ) {
 
 
-            // send GlobalState
-
             LocalState localState = new TankState();
-
             localState.setTankId(tank.getId());
 
             if (counter % 2 == 0) {
@@ -194,6 +190,7 @@ public class KryoClient implements GameClient {
                 e.printStackTrace();
             }
 
+            // send GlobalState
             GlobalState globalState = clientIn.getGlobalState();
             System.out.println("Global state, client.. " + globalState);
 
@@ -203,9 +200,7 @@ public class KryoClient implements GameClient {
 
         }
 
-
         System.out.println("End CLIENT game loop");
-
     }
 
     private void registerClasses() {

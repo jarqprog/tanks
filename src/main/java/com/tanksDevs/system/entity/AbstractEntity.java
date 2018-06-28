@@ -3,13 +3,12 @@ package com.tanksDevs.system.entity;
 import java.util.Objects;
 
 public abstract class AbstractEntity implements Entity {
+
     private int id;
     private double x;
     private double y;
     private double size;
 
-    public AbstractEntity() {
-    }
 
     public AbstractEntity(int id) {
         this.id = id;

@@ -73,7 +73,6 @@ public class NaivePojoParser implements PojoParser {
             default:
                 break;
         }
-
         return entity;
     }
 
@@ -98,7 +97,7 @@ public class NaivePojoParser implements PojoParser {
                 break;
             case EAGLE:
                 TankBasePojo tankBasePojo = new EaglePojo();
-                TankBase tankBase = (Eagle)entity;
+                TankBase tankBase = (TankBase) entity;
                 tankBasePojo.setId(entity.getId());
                 tankBasePojo.setX(entity.getX());
                 tankBasePojo.setY(entity.getY());
@@ -128,7 +127,8 @@ public class NaivePojoParser implements PojoParser {
                 tankPojo.setIsOccupied(tank.hasPlayer());
                 tankPojo.setDirection(tank.getDirection());
                 tankPojo.setSpeed(tank.getSpeed());
-                tankPojo.setTankBasePojo(parse(tank.getBase()));
+                EaglePojo eaglePojo = parse (tank.getBase());
+                tankPojo.setTankBasePojo(eaglePojo);
                 pojo = (P) tankPojo;
                 break;
             case BRICKWALL:
@@ -188,7 +188,6 @@ public class NaivePojoParser implements PojoParser {
             players.add( parse(player) );
         }
         gamePojo.setPlayers(players);
-
         return gamePojo;
     }
 
@@ -236,6 +235,7 @@ public class NaivePojoParser implements PojoParser {
             tankPojo.setHp(tank.getHp());
             tankPojo.setGenre(tank.getGenre());
             tankPojo.setIsOccupied(tank.hasPlayer());
+            tankPojo.setTankBasePojo( parse(tank.getBase()) );
             playerPojo.setTankPojo(tankPojo);
         }
 

@@ -13,9 +13,6 @@ public class SimpleBullet extends AbstractEntity implements Bullet {
     private final static int START_BULLET_HP = 1;
     private final static Genre genre = Genre.BULLET;
 
-    public SimpleBullet() {
-
-    }
 
     public SimpleBullet(int id, double x, double y, double size, Direction direction) {
         super(id, x, y, size);

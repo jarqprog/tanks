@@ -6,8 +6,6 @@ public class EaglePojo extends AbstractEntityPojo implements TankBasePojo {
 
     private int hp;
 
-    public EaglePojo() {}
-
     @Override
     public int getHp() {
         return hp;

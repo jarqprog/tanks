@@ -6,7 +6,7 @@ import com.tanksDevs.network.gameServer.GameServer;
 import com.tanksDevs.network.gameServer.InOut.ServerIn;
 import com.tanksDevs.network.gameServer.InOut.ServerOut;
 import com.tanksDevs.network.gameServer.ServerSupplier;
-import com.tanksDevs.network.input.UserInput;
+
 import com.tanksDevs.network.kryoHelper.KryoRegister;
 import com.tanksDevs.network.parser.PojoParser;
 import com.tanksDevs.network.states.GlobalState;
@@ -115,38 +115,35 @@ public class KryoServer implements GameServer {
 
         while ( notReady ) {
 
-            if ( game != null && game.getPlayers().size() == game.getTanks().size() ) {
+            if ( game != null && game.getPlayers().size() == game.getTanks().size() -1) {
                 serverIn.stopPreparation();
                 serverOut.stopPreparation();
                 notReady = false;
             }
 
-
+            if (game != null) {
+                serverOut.putGame(game);
+            }
 
             try {
-                wait(largeTimeWindow);
+                wait(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
             Game imported = serverIn.getGame();
 
-            System.out.println("Game imported: " + imported);
-
             if (imported != null) {
                 this.game = imported;
-            }
-
-            serverOut.putGame(game);
-
-            Iterator<Tank> tanksIterator = game.getTanks().iterator();
-            while (tanksIterator.hasNext()) {
-                Tank tank = tanksIterator.next();
-                tanks.put(tank.getId(), tank);
+                Iterator<Tank> tanksIterator = game.getTanks().iterator();
+                while (tanksIterator.hasNext()) {
+                    Tank tank = tanksIterator.next();
+                    tanks.put(tank.getId(), tank);
+                }
             }
         }
-
     }
+
 
     private synchronized void executeGameLoop() {
 
@@ -202,9 +199,7 @@ public class KryoServer implements GameServer {
             }
         }
 
-
         System.out.println("End SERVER game loop");
-
     }
 
     private void registerClasses() {
@@ -213,7 +208,12 @@ public class KryoServer implements GameServer {
 
     private void handleInputs(LocalState localState) {
 
+        if (localState == null) {
+            return;
+        }
+
         Tank tank = tanks.get(localState.getTankId());
+
 
         switch(localState.getUserInput()) {
             case UP:

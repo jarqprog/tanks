@@ -8,7 +8,7 @@ public class BasicHitBox implements HitBox {
     private double topY;
     private double side;
 
-    public BasicHitBox() {}
+//    public BasicHitBox() {}
 
     public BasicHitBox(double bottomX, double bottomY, double side) {
         this.bottomX = bottomX;
