@@ -58,7 +58,6 @@ public class KryoServerOut implements ServerOut {
 
         prepare();
         handleGame();
-
         server.close();
 
     }
@@ -69,6 +68,7 @@ public class KryoServerOut implements ServerOut {
 
             if (game != null) {
                 server.sendToAllTCP( pojoParser.parse(game) );
+                game = null;
             }
             try {
                 wait(largeTimeWindow);

@@ -98,7 +98,8 @@ public class BulletBankTest {
 
 
     private Bullet[] getFakeBullets() {
-        Bullet fake = new SimpleBullet() {
+
+        Bullet fake = new Bullet() {
             @Override
             public void destroy(Destructible target) {
 
@@ -122,6 +123,11 @@ public class BulletBankTest {
             @Override
             public double getSpeed() {
                 return 0;
+            }
+
+            @Override
+            public Direction getDirection() {
+                return null;
             }
 
             @Override
@@ -162,6 +168,21 @@ public class BulletBankTest {
             @Override
             public double getSize() {
                 return 0;
+            }
+
+            @Override
+            public void setX(double x) {
+
+            }
+
+            @Override
+            public void setY(double y) {
+
+            }
+
+            @Override
+            public void setSize(double size) {
+
             }
 
             @Override
