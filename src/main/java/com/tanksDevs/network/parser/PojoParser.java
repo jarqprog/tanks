@@ -12,6 +12,7 @@ public interface PojoParser {
     <T extends Entity, P extends EntityPojo> T parse(P pojo);
     <T extends Entity, P extends EntityPojo> P parse(T entity);
     GamePojo parse(Game game);
+    Game parse(GamePojo pojo);
     Player parse(PlayerPojo playerPojo);
     PlayerPojo parse(Player player);
 

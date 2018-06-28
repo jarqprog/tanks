@@ -28,12 +28,12 @@ public class KryoServerSupplier implements ServerSupplier {
 
     @Override
     public ServerIn createReceiver(Server server) {
-        return KryoServerIn.getInstance(server);
+        return KryoServerIn.getInstance(server, pojoParser);
     }
 
     @Override
     public ServerOut createSender(Server server) {
-        return KryoServerOut.getInstance(server);
+        return KryoServerOut.getInstance(server, pojoParser);
     }
 
     @Override

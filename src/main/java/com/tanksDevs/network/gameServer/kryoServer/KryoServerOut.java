@@ -2,12 +2,15 @@ package com.tanksDevs.network.gameServer.kryoServer;
 
 import com.esotericsoftware.kryonet.Server;
 import com.tanksDevs.network.gameServer.InOut.ServerOut;
+import com.tanksDevs.network.parser.PojoParser;
 import com.tanksDevs.network.states.GlobalState;
 import com.tanksDevs.system.game.Game;
 
 public class KryoServerOut implements ServerOut {
 
     private final Server server;
+    private final PojoParser pojoParser;
+
     private boolean shouldStop;  // if true - stop thread
     private boolean shouldStopPreparation;
     private int LONG_WAIT_LENGTH = 2000;
@@ -16,12 +19,13 @@ public class KryoServerOut implements ServerOut {
     private Game game;
     private GlobalState globalState;
 
-    public static ServerOut getInstance(Server server) {
-        return new KryoServerOut(server);
+    public static ServerOut getInstance(Server server, PojoParser pojoParser) {
+        return new KryoServerOut(server, pojoParser);
     }
 
-    private KryoServerOut(Server server) {
+    private KryoServerOut(Server server, PojoParser pojoParser) {
         this.server = server;
+        this.pojoParser = pojoParser;
     }
 
     @Override
@@ -59,7 +63,7 @@ public class KryoServerOut implements ServerOut {
         while (! shouldStopPreparation ) {
 
             if (game != null) {
-                server.sendToAllTCP(game);
+                server.sendToAllTCP( pojoParser.parse(game) );
             }
             try {
                 wait(LONG_WAIT_LENGTH);

@@ -6,15 +6,23 @@ import com.tanksDevs.network.gameServer.GameServer;
 import com.tanksDevs.network.gameServer.InOut.ServerIn;
 import com.tanksDevs.network.gameServer.InOut.ServerOut;
 import com.tanksDevs.network.gameServer.ServerSupplier;
+import com.tanksDevs.network.parser.NaivePojoParser;
 import com.tanksDevs.network.parser.PojoParser;
 import com.tanksDevs.system.entity.Colliding;
+import com.tanksDevs.system.entity.Genre;
+import com.tanksDevs.system.entity.bullet.SimpleBullet;
 import com.tanksDevs.system.entity.forest.SimpleForest;
 import com.tanksDevs.system.entity.forest.SimpleForestPojo;
+import com.tanksDevs.system.entity.hitBox.BasicHitBox;
+import com.tanksDevs.system.entity.hitBox.HitBox;
 import com.tanksDevs.system.entity.tank.SimpleTank;
+import com.tanksDevs.system.entity.tank.SimpleTankPojo;
 import com.tanksDevs.system.entity.tank.Tank;
 import com.tanksDevs.system.game.Game;
 import com.tanksDevs.system.game.SimpleGame;
+import com.tanksDevs.system.game.SimpleGamePojo;
 import com.tanksDevs.system.player.Player;
+import com.tanksDevs.system.player.UserPojo;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -144,9 +152,21 @@ public class KryoServer implements GameServer {
         kryo.register(SimpleForestPojo.class);
         kryo.register(SimpleGame.class);
         kryo.register(HashSet.class);
-        kryo.register(Colliding.class);
         kryo.register(Tank.class);
         kryo.register(SimpleTank.class);
         kryo.register(Player.class);
+        kryo.register(SimpleGamePojo.class);
+        kryo.register(SimpleTankPojo.class);
+        kryo.register(UserPojo.class);
+        kryo.register(Genre.class);
+
+        kryo.register(BasicHitBox.class);
+        kryo.register(HitBox.class);
+
+        kryo.register(Colliding.class);
+
+        kryo.register(SimpleBullet.class);
+
+
     }
 }

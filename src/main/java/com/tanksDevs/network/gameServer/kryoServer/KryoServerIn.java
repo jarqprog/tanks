@@ -4,13 +4,16 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import com.tanksDevs.network.gameServer.InOut.ServerIn;
+import com.tanksDevs.network.parser.PojoParser;
 import com.tanksDevs.network.states.LocalState;
 import com.tanksDevs.system.game.Game;
+import com.tanksDevs.system.game.GamePojo;
 
 public class KryoServerIn implements ServerIn {
 
 
     private final Server server;
+    private final PojoParser pojoParser;
     private boolean shouldStop;  // if true - stop thread
     private boolean shouldStopPreparation;
     private int LONG_WAIT_LENGTH = 1000;
@@ -20,13 +23,14 @@ public class KryoServerIn implements ServerIn {
     private LocalState localState;
 
 
-    public static ServerIn getInstance(Server server) {
-        return new KryoServerIn(server);
+    public static ServerIn getInstance(Server server, PojoParser pojoParser) {
+        return new KryoServerIn(server, pojoParser);
     }
 
 
-    private KryoServerIn(Server server) {
+    private KryoServerIn(Server server, PojoParser pojoParser) {
         this.server = server;
+        this.pojoParser = pojoParser;
     }
 
     @Override
@@ -61,20 +65,22 @@ public class KryoServerIn implements ServerIn {
 
 
         while (! shouldStopPreparation ) {
-
+            try {
+            System.out.println("deser!! serverIn");
             server.addListener(new Listener() {
 
                 public void received (Connection connection, Object object) {
-                    if (object instanceof Game) {
-                        game = (Game) object;
+                    if (object instanceof GamePojo) {
+                        game = pojoParser.parse( (GamePojo) object);
                     }
                 }
             });
 
-            try {
+
                 wait(LONG_WAIT_LENGTH);
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
+
             }
         }
     }

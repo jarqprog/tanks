@@ -4,4 +4,6 @@ import com.tanksDevs.system.pojo.AbstractEntityPojo;
 
 public class SimpleForestPojo extends AbstractEntityPojo implements ForestPojo {
 
+    public SimpleForestPojo() {}
+
 }

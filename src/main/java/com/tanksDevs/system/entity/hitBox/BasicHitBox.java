@@ -8,6 +8,8 @@ public class BasicHitBox implements HitBox {
     private double topY;
     private double side;
 
+    public BasicHitBox() {}
+
     public BasicHitBox(double bottomX, double bottomY, double side) {
         this.bottomX = bottomX;
         this.bottomY = bottomY;
@@ -43,6 +45,31 @@ public class BasicHitBox implements HitBox {
             result = false;
         }
         return result;
+    }
+
+    @Override
+    public void setBottomX(double bottomX) {
+        this.bottomX = bottomX;
+    }
+
+    @Override
+    public void setBottomY(double bottomY) {
+        this.bottomY = bottomY;
+    }
+
+    @Override
+    public void setTopX(double topX) {
+        this.topX = topX;
+    }
+
+    @Override
+    public void setTopY(double topY) {
+        this.topY = topY;
+    }
+
+    @Override
+    public void setSide(double side) {
+        this.side = side;
     }
 }
 
