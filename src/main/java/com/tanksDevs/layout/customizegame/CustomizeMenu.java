@@ -4,6 +4,7 @@ import com.tanksDevs.App;
 import com.tanksDevs.layout.GameScreen;
 import com.tanksDevs.layout.button.ButtonMaker;
 import com.tanksDevs.layout.utils.FadeAnimation;
+import com.tanksDevs.network.NetRoot;
 import com.tanksDevs.sound.Music;
 import com.tanksDevs.sound.Track;
 import javafx.animation.FadeTransition;
@@ -12,6 +13,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+
+import java.net.UnknownHostException;
 
 public class CustomizeMenu {
 
@@ -70,6 +73,11 @@ public class CustomizeMenu {
                 animateScreenSwitch(event1 -> {
                     app.setAllowListeners(true);
                     //LOGIC FOR CREATE
+                    try {
+                        NetRoot.createNetRoot().start(app.getStage());
+                    } catch (UnknownHostException e) {
+                        e.printStackTrace();
+                    }
                 });
             }
         });
