@@ -12,19 +12,19 @@ import java.util.Set;
 // naive implementation! tmp
 public class SimpleGame implements Game {
 
-    private Set<Colliding> collidings = new HashSet<>();
-    private Set<Tank> tanks = new HashSet<>();
-    private Set<Player> players = new HashSet<>();
+    private Set<Colliding> collidings;
+    private Set<Tank> tanks;
+    private Set<Player> players;
 
     public SimpleGame(Set<Colliding> collidings, Set<Tank> tanks) {
         this.collidings = collidings;
         this.tanks = tanks;
+        this.players = new HashSet<>();
     }
 
-    public SimpleGame(GamePojo gamePojo) {
-        this.collidings = gamePojo.gatherCollidings();
-        this.tanks = gamePojo.gatherTanks();
-        this.players = gamePojo.gatherPlayers();
+    public SimpleGame(Set<Colliding> collidings, Set<Tank> tanks, Set<Player> players) {
+        this(collidings, tanks);
+        this.players = players;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.tanksDevs.system.bulletPool;
 import com.tanksDevs.system.entity.Colliding;
 import com.tanksDevs.system.entity.Destructible;
 import com.tanksDevs.system.entity.Direction;
+import com.tanksDevs.system.entity.Genre;
 import com.tanksDevs.system.entity.bullet.Bullet;
 import com.tanksDevs.system.entity.hitBox.HitBox;
 import org.junit.Before;
@@ -97,7 +98,6 @@ public class BulletBankTest {
 
     private Bullet[] getFakeBullets() {
         Bullet fake = new Bullet() {
-
             @Override
             public void destroy(Destructible target) {
 
@@ -140,6 +140,31 @@ public class BulletBankTest {
 
             @Override
             public HitBox getHitBox() {
+                return null;
+            }
+
+            @Override
+            public int getId() {
+                return 0;
+            }
+
+            @Override
+            public double getX() {
+                return 0;
+            }
+
+            @Override
+            public double getY() {
+                return 0;
+            }
+
+            @Override
+            public double getSize() {
+                return 0;
+            }
+
+            @Override
+            public Genre getGenre() {
                 return null;
             }
         };

@@ -38,12 +38,12 @@ public class KryoClientSupplier implements ClientSupplier {
 
     @Override
     public ClientIn createReceiver(Client client) {
-        return KryoClientIn.getInstance(client);
+        return KryoClientIn.getInstance(client, pojoParser);
     }
 
     @Override
     public ClientOut createSender(Client client) {
-        return KryoClientOut.getInstance(client);
+        return KryoClientOut.getInstance(client, pojoParser);
     }
 
     @Override

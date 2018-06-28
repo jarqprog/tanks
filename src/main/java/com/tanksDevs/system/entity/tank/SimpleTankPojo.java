@@ -6,6 +6,8 @@ public class SimpleTankPojo extends AbstractEntityPojo implements TankPojo {
 
     private int hp;
 
+    public SimpleTankPojo() {}
+
     @Override
     public int getHp() {
         return hp;

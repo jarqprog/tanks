@@ -1,8 +1,12 @@
 package com.tanksDevs.network.parser;
 
+import com.tanksDevs.system.entity.Colliding;
 import com.tanksDevs.system.entity.Entity;
 import com.tanksDevs.system.entity.Genre;
 
+import com.tanksDevs.system.entity.bullet.BulletPojo;
+import com.tanksDevs.system.entity.bullet.SimpleBullet;
+import com.tanksDevs.system.entity.bullet.SimpleBulletPojo;
 import com.tanksDevs.system.entity.eagle.Eagle;
 import com.tanksDevs.system.entity.eagle.EaglePojo;
 import com.tanksDevs.system.entity.eagle.TankBase;
@@ -21,11 +25,17 @@ import com.tanksDevs.system.entity.water.SimpleWaterPojo;
 import com.tanksDevs.system.entity.water.WaterPojo;
 import com.tanksDevs.system.game.Game;
 import com.tanksDevs.system.game.GamePojo;
+import com.tanksDevs.system.game.SimpleGame;
+import com.tanksDevs.system.game.SimpleGamePojo;
 import com.tanksDevs.system.player.Player;
 import com.tanksDevs.system.player.PlayerPojo;
 import com.tanksDevs.system.player.User;
 import com.tanksDevs.system.player.UserPojo;
 import com.tanksDevs.system.pojo.EntityPojo;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class NaivePojoParser implements PojoParser {
 
@@ -40,6 +50,9 @@ public class NaivePojoParser implements PojoParser {
 
         switch (genre) {
 
+            case BULLET:
+                entity = (T) new SimpleBullet((BulletPojo) pojo);
+                break;
             case EAGLE:
                 entity = (T) new Eagle((TankBasePojo) pojo);
                 break;
@@ -72,6 +85,15 @@ public class NaivePojoParser implements PojoParser {
         P pojo = null;
 
         switch (genre){
+            case BULLET:
+                BulletPojo bulletPojo = new SimpleBulletPojo();
+                bulletPojo.setId(entity.getId());
+                bulletPojo.setX(entity.getX());
+                bulletPojo.setY(entity.getY());
+                bulletPojo.setSize(entity.getSize());
+                bulletPojo.setGenre(entity.getGenre());
+                pojo = (P) bulletPojo;
+                break;
             case EAGLE:
                 TankBasePojo tankBasePojo = new EaglePojo();
                 TankBase tankBase = (Eagle)entity;
@@ -138,8 +160,54 @@ public class NaivePojoParser implements PojoParser {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public GamePojo parse(Game game) {
-        return null;
+
+        GamePojo gamePojo = new SimpleGamePojo();
+
+        Set<TankPojo> tanks = new HashSet<>();
+        for (Tank tank : game.getTanks()) {
+            tanks.add( parse(tank) );
+        }
+        gamePojo.setTanks(tanks);
+
+        Set<EntityPojo> collidings = new HashSet<>();
+        for (Entity obj : game.getCollidings()) {
+            collidings.add( parse( obj) );
+        }
+        gamePojo.setCollidings(collidings);
+
+        Set<PlayerPojo> players = new HashSet<>();
+        for (Player player : game.getPlayers()) {
+            players.add( parse(player) );
+        }
+        gamePojo.setPlayers(players);
+
+        return gamePojo;
+    }
+
+    @Override
+    public Game parse(GamePojo pojo) {
+
+        Set<Colliding> collidings = new HashSet<>();
+        Iterator<EntityPojo> iterator = pojo.getCollidings().iterator();
+        while ( iterator.hasNext() ) {
+            collidings.add(parse(iterator.next()));
+        }
+
+        Set<Tank> tanks = new HashSet<>();
+        Iterator<TankPojo> tankIterator = pojo.getTanks().iterator();
+        while ( tankIterator.hasNext() ) {
+            tanks.add(parse(tankIterator.next()));
+        }
+
+        Set<Player> players = new HashSet<>();
+        Iterator<PlayerPojo> playerIterator = pojo.getPlayers().iterator();
+        while ( playerIterator.hasNext() ) {
+            players.add(parse(playerIterator.next()));
+        }
+
+        return new SimpleGame(collidings, tanks, players);
     }
 
     @Override

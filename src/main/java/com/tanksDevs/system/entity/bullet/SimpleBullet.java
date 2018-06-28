@@ -6,8 +6,13 @@ import com.tanksDevs.system.entity.hitBox.HitBox;
 public class SimpleBullet extends AbstractEntity implements Bullet {
 
     private final Genre genre = Genre.BULLET;
+
     public SimpleBullet(int id) {
         super(id);
+    }
+
+    public SimpleBullet(BulletPojo bulletPojo) {
+        super(bulletPojo.getId());
     }
 
     @Override
