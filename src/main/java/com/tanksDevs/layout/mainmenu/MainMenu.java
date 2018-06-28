@@ -21,7 +21,7 @@ public class MainMenu extends Screen {
     @Override
     protected Parent buildRoot() {
         StackPane root = new StackPane();
-        GridPane menu = new CentralMenu().build(root, app);
+        GridPane menu = new CentralMenu(root, app).build();
         ImageView titleImage = new ImageView(TITLE);
 
         menu.setAlignment(Pos.CENTER);
