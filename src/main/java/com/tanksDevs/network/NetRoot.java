@@ -113,6 +113,7 @@ public class NetRoot implements Root {
         }
 
 
+
         GameClient gameClient = KryoClient.createKryoClient(clientSupplier, stage);
 
         gameClient.runClient();
