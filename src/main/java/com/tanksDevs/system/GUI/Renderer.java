@@ -61,13 +61,9 @@ public class Renderer {
 
         Group root = new Group();
         root.getChildren().addAll(canvas, imageViewTankP1, imageViewTankP2);
-
-        scene = new Scene(root);
-
         stage.setTitle(TITLE);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+        render();
+        stage.getScene().setRoot(root);
     }
 
     public void render() {

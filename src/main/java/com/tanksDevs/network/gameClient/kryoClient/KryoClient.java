@@ -117,8 +117,6 @@ public class KryoClient implements GameClient {
         }
 
         this.game = imported;
-        this.renderer = new Renderer(stage, game);
-        initInputEvents();
         Tank myTank;
 
         // todo ;0)
@@ -166,18 +164,14 @@ public class KryoClient implements GameClient {
 
     private synchronized void executeGameLoop() {
 
+        this.renderer = new Renderer(stage, game);
+        initInputEvents();
+
         System.out.println("Client game loop");
-
         // temporary pseudo loop ;)
-
 
         boolean hasWinner = false;
         int counter = 0;
-
-        long lastTime = System.nanoTime();
-        double tickRate = 60.0;
-        double ns = 1000000000 / tickRate;
-        double delta = 0;
 
         while (! hasWinner ) {
 
@@ -206,15 +200,8 @@ public class KryoClient implements GameClient {
                 hasWinner = true;
             }
 
-            long now = System.nanoTime();
-            delta += (now - lastTime) / ns;
-            lastTime = now;
-
-            while(delta >= 1) {
-                update(globalState);
-                renderer.render();
-                delta -= 1;
-            }
+            update(globalState);
+            renderer.render();
         }
 
         System.out.println("End CLIENT game loop");
