@@ -1,8 +1,10 @@
 package com.tanksDevs;
 
+import javafx.stage.Stage;
+
 import java.net.UnknownHostException;
 
 public interface Root {
 
-    void start() throws UnknownHostException;
+    void start(Stage stage) throws UnknownHostException;
 }
