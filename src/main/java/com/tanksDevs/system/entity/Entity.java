@@ -5,5 +5,6 @@ public interface Entity {
     int getId();
     double getX();
     double getY();
-
+    double getSize();
+    Genre getGenre();
 }

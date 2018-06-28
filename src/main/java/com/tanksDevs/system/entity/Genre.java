@@ -1,6 +1,5 @@
 package com.tanksDevs.system.entity;
 
 public enum Genre {
-
-    //// rodzaje jednostek gry
+    BRICKWALL, STEELWALL, TANK, BULLET, FOREST, WATER, EAGLE;
 }

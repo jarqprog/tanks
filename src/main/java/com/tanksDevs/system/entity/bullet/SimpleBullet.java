@@ -1,16 +1,17 @@
 package com.tanksDevs.system.entity.bullet;
 
-import com.tanksDevs.system.entity.Colliding;
-import com.tanksDevs.system.entity.Destructible;
-import com.tanksDevs.system.entity.Direction;
+import com.tanksDevs.system.entity.*;
 import com.tanksDevs.system.entity.hitBox.HitBox;
 
-public class SimpleBullet implements Bullet {
+public class SimpleBullet extends AbstractEntity implements Bullet {
 
-    private double x;
-    private double y;
     private Direction direction;
     private double speed;
+    private int hp;
+    private boolean destroyed;
+    private HitBox hitBox;
+    private final static int START_BULLET_HP = 1;
+    private final static Genre genre = Genre.BULLET;
 
     public SimpleBullet() {
 
@@ -23,29 +24,47 @@ public class SimpleBullet implements Bullet {
         this.speed = 1.0;
     }
 
+    public SimpleBullet(int id) {
+        super(id);
+        this.hp = START_BULLET_HP;
+        destroyed = false;
+    }
+
+    public SimpleBullet(BulletPojo bulletPojo) {
+        super(bulletPojo.getId());
+        this.hp = bulletPojo.getHp();
+        destroyed = (hp <= 0);
+    }
+
     @Override
     public void destroy(Destructible target) {
-
+        target.decrementHp(1);
     }
 
     @Override
     public int getHp() {
-        return 0;
-    }
-
-    @Override
-    public void decrementHp(int hitPoints) {
-
-    }
-
-    @Override
-    public boolean isDestroyed() {
-        return false;
+        return hp;
     }
 
     @Override
     public double getSpeed() {
         return speed;
+
+    public void decrementHp(int hitPoints) {
+        hp -= hitPoints;
+        if(hp <= 0){
+            destroyed = true;
+        }
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
+    @Override
+    public Genre getGenre() {
+        return genre;
     }
 
     @Override
@@ -79,26 +98,11 @@ public class SimpleBullet implements Bullet {
 
     @Override
     public boolean isCollision(Colliding other) {
-        return false;
+        return hitBox.checkCollision(other.getHitBox());
     }
 
     @Override
     public HitBox getHitBox() {
-        return null;
-    }
-
-    @Override
-    public int getId() {
-        return 0;
-    }
-
-    @Override
-    public double getX() {
-        return 0;
-    }
-
-    @Override
-    public double getY() {
-        return 0;
+        return hitBox;
     }
 }
