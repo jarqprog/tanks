@@ -1,8 +1,6 @@
 package com.tanksDevs.network.gameServer.kryoServer;
 
-import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Server;
-import com.tanksDevs.network.gameServer.InOut.KryoServerOut;
 import com.tanksDevs.network.gameServer.InOut.ServerIn;
 import com.tanksDevs.network.gameServer.InOut.ServerOut;
 import com.tanksDevs.network.gameServer.ServerSupplier;
@@ -11,43 +9,70 @@ import com.tanksDevs.system.board.Board;
 import com.tanksDevs.system.game.Game;
 
 
-
 public class KryoServerSupplier implements ServerSupplier {
 
+    private final int portTCP;
+    private final int portUDP;
+    private final String ipAddress;
 
+    private final PojoParser pojoParser;
+    private Game game;
+    private Board board;
 
-    @Override
-    public ServerIn createReciever(int tcpPort, int udpPort, String ipAddress, Kryo kryo, Server server) {
-        return null;
+    public KryoServerSupplier(int portTCP, int portUDP, String ipAddress, PojoParser pojoParser) {
+        this.portTCP = portTCP;
+        this.portUDP = portUDP;
+        this.ipAddress = ipAddress;
+        this.pojoParser = pojoParser;
     }
 
     @Override
-    public ServerOut createSender(int tcpPort, int udpPort, String ipAddress, Kryo kryo, Server server) {
-        return new KryoServerOut(tcpPort, udpPort, ipAddress, kryo, server);
+    public ServerIn createReceiver(Server server) {
+        return KryoServerIn.getInstance(server);
+    }
+
+    @Override
+    public ServerOut createSender(Server server) {
+        return KryoServerOut.getInstance(server);
     }
 
     @Override
     public int getPortTCP() {
-        return 0;
+        return portTCP;
     }
 
     @Override
     public int getPortUDP() {
-        return 0;
+        return portUDP;
+    }
+
+    @Override
+    public String getIpAddress() {
+        return ipAddress;
     }
 
     @Override
     public Board getBoard() {
-        return null;
+        return board;
     }
 
     @Override
     public Game getGame() {
-        return null;
+        return game;
     }
 
     @Override
     public PojoParser getParser() {
-        return null;
+        return pojoParser;
+    }
+
+    @Override
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    @Override
+    public void setBoard(Board board) {
+        this.board = board;
     }
 }

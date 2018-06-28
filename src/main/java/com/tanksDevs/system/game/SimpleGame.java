@@ -16,6 +16,17 @@ public class SimpleGame implements Game {
     private Set<Tank> tanks = new HashSet<>();
     private Set<Player> players = new HashSet<>();
 
+    public SimpleGame(Set<Colliding> collidings, Set<Tank> tanks) {
+        this.collidings = collidings;
+        this.tanks = tanks;
+    }
+
+    public SimpleGame(GamePojo gamePojo) {
+        this.collidings = gamePojo.gatherCollidings();
+        this.tanks = gamePojo.gatherTanks();
+        this.players = gamePojo.gatherPlayers();
+    }
+
     @Override
     public Board getBoard() {
         return null;
@@ -50,6 +61,11 @@ public class SimpleGame implements Game {
     }
 
     @Override
+    public Set<Player> getPlayers() {
+        return this.players;
+    }
+
+    @Override
     public void setCollidings(Set<Colliding> collidings) {
         this.collidings = collidings;
     }
@@ -57,5 +73,10 @@ public class SimpleGame implements Game {
     @Override
     public void setTanks(Set<Tank> tanks) {
         this.tanks = tanks;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
     }
 }

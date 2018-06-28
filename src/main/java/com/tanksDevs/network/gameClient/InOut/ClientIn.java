@@ -8,6 +8,7 @@ public interface ClientIn extends Runnable {
 
     GlobalState getGlobalState();
     Game getGame();
-
+    void stop();
+    void stopPreparation();
 
 }

@@ -22,16 +22,11 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>kryonet</groupId>
-            <artifactId>kryonet</artifactId>
-            <version>2.21</version>
-        </dependency>
-
+        <!-- https://mvnrepository.com/artifact/com.esotericsoftware/kryonet -->
         <dependency>
             <groupId>com.esotericsoftware</groupId>
-            <artifactId>kryo</artifactId>
-            <version>5.0.0-RC2-SNAPSHOT</version>
+            <artifactId>kryonet</artifactId>
+            <version>2.22.0-RC1</version>
         </dependency>
         
         <dependency>

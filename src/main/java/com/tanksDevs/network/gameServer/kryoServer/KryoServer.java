@@ -7,15 +7,16 @@ import com.tanksDevs.network.gameServer.InOut.ServerIn;
 import com.tanksDevs.network.gameServer.InOut.ServerOut;
 import com.tanksDevs.network.gameServer.ServerSupplier;
 import com.tanksDevs.network.parser.PojoParser;
+import com.tanksDevs.system.entity.Colliding;
 import com.tanksDevs.system.entity.forest.SimpleForest;
 import com.tanksDevs.system.entity.forest.SimpleForestPojo;
+import com.tanksDevs.system.entity.tank.SimpleTank;
+import com.tanksDevs.system.entity.tank.Tank;
 import com.tanksDevs.system.game.Game;
 import com.tanksDevs.system.game.SimpleGame;
 import com.tanksDevs.system.player.Player;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,22 +29,28 @@ public class KryoServer implements GameServer {
     private final Server server;
     private final ServerSupplier serverSupplier;
     private final Set<Player> players;
-    private final Game game;
+    private Game game;
     private final Kryo kryo;
     private ServerIn serverIn;
     private ServerOut serverOut;
+    private int LONG_WAIT_LENGTH = 2000;
+    private int SHORT_WAIT_LENGTH = 10;
 
-    public KryoServer(ServerSupplier serverSupplier, Set<Player> players) throws UnknownHostException {
+    public static GameServer createKryoServer(ServerSupplier serverSupplier) {
+        return new KryoServer(serverSupplier);
+    }
+
+    private KryoServer(ServerSupplier serverSupplier) {
         this.parser = serverSupplier.getParser();
         this.portTCP = serverSupplier.getPortTCP();
         this.portUDP = serverSupplier.getPortUDP();
-        InetAddress ip = InetAddress.getLocalHost();
-        this.ipAddress = ip.getHostAddress();
+        this.ipAddress = serverSupplier.getIpAddress();
         this.serverSupplier = serverSupplier;
         this.server = new Server();
         this.kryo = server.getKryo();
         this.players = new HashSet<>();
         this.game = serverSupplier.getGame();
+
     }
 
 
@@ -72,30 +79,74 @@ public class KryoServer implements GameServer {
     @Override
     public void run() {
 
+        try {
+            prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        executeGameLoop();
+
     }
 
-    private void prepare() throws IOException {
+    private synchronized void prepare() throws IOException {
+
+        registerClasses();
 
         server.start();
         server.bind(portTCP, portUDP);
 
-        kryo.register(SimpleForest.class);
-        kryo.register(SimpleForestPojo.class);
-        kryo.register(SimpleGame.class);
 
+        serverIn = serverSupplier.createReceiver(server);
+        serverOut = serverSupplier.createSender(server);
 
-        serverIn = serverSupplier.createReciever(portTCP, portUDP, ipAddress, kryo, server);
-        serverOut = serverSupplier.createSender(portTCP, portUDP, ipAddress, kryo, server);
+        Thread serverOutThread = new Thread(serverOut);
+        serverOutThread.start();
 
+        Thread serverInThread = new Thread(serverIn);
+        serverInThread.start();
 
+        boolean notReady = true;
 
+        while ( notReady ) {
 
+            if ( game != null && game.getPlayers().size() > 0 ) {  // todo size() == 2
+                serverIn.stopPreparation();
+                notReady = false;
+            }
+
+            serverOut.putGame(game);
+
+            try {
+                wait(LONG_WAIT_LENGTH);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            Game imported = serverIn.getGame();
+
+            if (imported != null) {
+                this.game = imported;
+            }
+
+        }
 
     }
 
+    private void executeGameLoop() {
 
-    private void gameLoop() {
+        System.out.println("Server game loop!");
+    }
 
+    private void registerClasses() {
 
+        kryo.register(SimpleForest.class);
+        kryo.register(SimpleForestPojo.class);
+        kryo.register(SimpleGame.class);
+        kryo.register(HashSet.class);
+        kryo.register(Colliding.class);
+        kryo.register(Tank.class);
+        kryo.register(SimpleTank.class);
+        kryo.register(Player.class);
     }
 }

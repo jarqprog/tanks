@@ -2,7 +2,6 @@ package com.tanksDevs.network.parser;
 
 import com.tanksDevs.system.entity.Entity;
 import com.tanksDevs.system.entity.Genre;
-import com.tanksDevs.system.entity.forest.Forest;
 import com.tanksDevs.system.entity.forest.SimpleForest;
 import com.tanksDevs.system.entity.forest.SimpleForestPojo;
 import com.tanksDevs.system.game.Game;
@@ -38,11 +37,6 @@ public class NaivePojoParser implements PojoParser {
 
     @Override
     public <T extends Entity, P extends EntityPojo> P parse(T entity) {
-        return null;
-    }
-
-    @Override
-    public Game parse(GamePojo gamePojo) {
         return null;
     }
 
