@@ -2,6 +2,7 @@ package com.tanksDevs;
 
 import com.tanksDevs.layout.GameScreen;
 import com.tanksDevs.layout.utils.FadeAnimation;
+import com.tanksDevs.network.NetRoot;
 import com.tanksDevs.sound.Music;
 import com.tanksDevs.sound.Track;
 import javafx.animation.FadeTransition;
@@ -9,6 +10,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+
+import java.net.UnknownHostException;
 
 
 public class App extends Application {
@@ -37,6 +40,11 @@ public class App extends Application {
         setCurrentScreen(GameScreen.MAIN_MENU);
         stage.show();
         playMusic(Track.MENU);
+        try {
+            NetRoot.createNetRoot().start(stage);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setCurrentScreen(GameScreen screen) {

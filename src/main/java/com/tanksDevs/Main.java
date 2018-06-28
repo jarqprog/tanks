@@ -7,6 +7,6 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        NetRoot.createNetRoot().start();
+//        NetRoot.createNetRoot().start();
     }
 }
