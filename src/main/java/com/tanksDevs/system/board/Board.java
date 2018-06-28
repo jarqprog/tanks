@@ -8,4 +8,8 @@ public interface Board {
     void setTile(int x, int y, Cell cell);
 
     void importFromJSON(String jsonString);
+
+    int getWidth();
+
+    int getHeight();
 }
