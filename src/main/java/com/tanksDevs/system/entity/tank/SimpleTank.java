@@ -48,7 +48,7 @@ public class SimpleTank extends AbstractEntity implements Tank {
 
     @Override
     public Direction getDirection() {
-        return null;
+        return direction;
     }
 
     @Override
