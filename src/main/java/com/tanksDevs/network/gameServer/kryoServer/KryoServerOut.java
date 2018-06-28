@@ -57,6 +57,7 @@ public class KryoServerOut implements ServerOut {
     public synchronized void run() {
 
         prepare();
+        handleGame();
 
     }
 
@@ -69,6 +70,22 @@ public class KryoServerOut implements ServerOut {
             }
             try {
                 wait(largeTimeWindow);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private synchronized void handleGame() {
+
+        while (! shouldStop ) {
+
+            if (globalState != null) {
+                server.sendToAllUDP( globalState );
+                globalState = null;
+            }
+            try {
+                wait(shortTimeWindow);  // maybe notify all?
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

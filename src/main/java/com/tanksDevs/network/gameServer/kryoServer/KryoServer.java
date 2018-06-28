@@ -8,6 +8,9 @@ import com.tanksDevs.network.gameServer.InOut.ServerOut;
 import com.tanksDevs.network.gameServer.ServerSupplier;
 import com.tanksDevs.network.kryoHelper.KryoRegister;
 import com.tanksDevs.network.parser.PojoParser;
+import com.tanksDevs.network.states.GlobalState;
+import com.tanksDevs.network.states.LocalState;
+import com.tanksDevs.network.states.ServerState;
 import com.tanksDevs.system.game.Game;
 import com.tanksDevs.system.player.Player;
 
@@ -134,9 +137,46 @@ public class KryoServer implements GameServer {
 
     }
 
-    private void executeGameLoop() {
+    private synchronized void executeGameLoop() {
 
         System.out.println("Server game loop!");
+
+        // temporary pseudo loop ;)
+
+
+        boolean hasWinner = false;
+        int counter = 0;
+
+        while (! hasWinner ) {
+
+
+            // send GlobalState
+
+            GlobalState state = new ServerState();
+            state.setId(counter);
+
+            serverOut.putGlobalState(state);
+
+            counter++;
+
+            try {
+                wait(shortTimeWindow);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            LocalState localState = serverIn.getLocalState();
+            System.out.println("Local state, server.. " + localState);
+
+            if (counter > 100000) {
+                hasWinner = true;
+            }
+
+        }
+
+
+        System.out.println("End SERVER game loop");
+
     }
 
     private void registerClasses() {
