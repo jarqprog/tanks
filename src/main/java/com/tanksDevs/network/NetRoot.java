@@ -14,6 +14,7 @@ import com.tanksDevs.network.kryoHelper.SimpleKryoRegister;
 import com.tanksDevs.network.parser.NaivePojoParser;
 import com.tanksDevs.network.parser.PojoParser;
 import com.tanksDevs.system.entity.Colliding;
+import com.tanksDevs.system.entity.Direction;
 import com.tanksDevs.system.entity.tank.SimpleTank;
 import com.tanksDevs.system.entity.tank.Tank;
 import com.tanksDevs.system.game.Game;
@@ -63,8 +64,8 @@ public class NetRoot implements Root {
         Set<Colliding> collidings = new HashSet<>();
         Set<Tank> tanks = new HashSet<>();
 
-        Tank first = new SimpleTank(10, 10, 10, 10);
-        Tank second = new SimpleTank(20, 20, 20, 20);
+        Tank first = new SimpleTank(10, 10, 10, 10, Direction.NORTH);
+        Tank second = new SimpleTank(20, 20, 20, 20, Direction.SOUTH);
 
         collidings.add(first);
         tanks.add(first);
