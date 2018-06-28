@@ -64,53 +64,53 @@ public class SimpleGame extends Application implements Game {
           return null;
       }
 
-      @Override
-      public Set<Colliding> getCollidings() {
-          return collidings;
-      }
+    @Override
+    public Set<Colliding> getCollidings() {
+      return collidings;
+    }
 
-      @Override
-      public Set<Tank> getTanks() {
-          return tanks;
-      }
-  
-      @Override
-      public boolean markPlayerTank(Tank tank) {
+    @Override
+    public Set<Tank> getTanks() {
+      return tanks;
+    }
 
-          for(Iterator<Tank> it = tanks.iterator(); it.hasNext(); ) {
-              Tank toMark = it.next();
-              if (toMark.equals(tank)) {
-                  toMark.markAsOccupied();
-                  return true;
-              }
+    @Override
+    public boolean markPlayerTank(Tank tank) {
+
+      for(Iterator<Tank> it = tanks.iterator(); it.hasNext(); ) {
+          Tank toMark = it.next();
+          if (toMark.equals(tank)) {
+              toMark.markAsOccupied();
+              return true;
           }
-          return false;
       }
+      return false;
+    }
 
-      @Override
-      public boolean registerPlayer(Player player) {
-          return players.add(player);
-      }
+    @Override
+    public boolean registerPlayer(Player player) {
+      return players.add(player);
+    }
 
-      @Override
-      public Set<Player> getPlayers() {
-          return this.players;
-      }
+    @Override
+    public Set<Player> getPlayers() {
+      return this.players;
+    }
 
-      @Override
-      public void setCollidings(Set<Colliding> collidings) {
-          this.collidings = collidings;
-      }
+    @Override
+    public void setCollidings(Set<Colliding> collidings) {
+      this.collidings = collidings;
+    }
 
-      @Override
-      public void setTanks(Set<Tank> tanks) {
-          this.tanks = tanks;
-      }
+    @Override
+    public void setTanks(Set<Tank> tanks) {
+      this.tanks = tanks;
+    }
 
-      @Override
-      public String toString() {
-          return getClass().getSimpleName();
-      }
+    @Override
+    public String toString() {
+      return getClass().getSimpleName();
+    }
 
     @Override
     public void start(Stage stage) {
