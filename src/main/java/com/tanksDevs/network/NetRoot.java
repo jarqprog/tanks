@@ -44,7 +44,7 @@ public class NetRoot implements Root {
         int portTCP = 9999;
         int portUDP = 9900;
         int largeTimeWindow = 500;
-        int shortTimeWindow = 10;
+        int shortTimeWindow = 12;
         String ipAddress = "192.168.11.70";
 //        String ipAddress = "192.168.10.244";
 
