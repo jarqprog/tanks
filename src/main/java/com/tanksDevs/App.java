@@ -2,9 +2,12 @@ package com.tanksDevs;
 
 import com.tanksDevs.layout.GameScreen;
 import com.tanksDevs.layout.utils.FadeAnimation;
+import com.tanksDevs.sound.Music;
+import com.tanksDevs.sound.Track;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 
@@ -14,11 +17,15 @@ public class App extends Application {
     private Stage stage;
     private boolean allowListeners = true;
 
+    private MediaPlayer mediaPlayer;
+
     private static final double INITIAL_ALPHA = 0.0;
     private static final double FINAL_ALPHA = 1.0;
     private static final int ANIMATION_DURATION = 2500;
 
-    public void begin(String... args) {
+    private static final double VOLUME = 0.5;
+
+    void begin(String... args) {
         launch(args);
     }
 
@@ -29,6 +36,7 @@ public class App extends Application {
 
         setCurrentScreen(GameScreen.MAIN_MENU);
         stage.show();
+        playMusic(Track.MENU);
     }
 
     public void setCurrentScreen(GameScreen screen) {
@@ -36,6 +44,18 @@ public class App extends Application {
         Scene scene = screen.getScene(this);
         stage.setScene(scene);
 //        animateScene(scene);
+    }
+
+    public void playMusic(Track track) {
+        if (mediaPlayer.getStatus() != MediaPlayer.Status.DISPOSED) {
+            mediaPlayer = Music.playMusic(track, VOLUME, true);
+        }
+    }
+
+    public void stopMusic() {
+        if (mediaPlayer.getStatus() != MediaPlayer.Status.DISPOSED) {
+            mediaPlayer.stop();
+        }
     }
 
     private void animateScene(Scene scene) {

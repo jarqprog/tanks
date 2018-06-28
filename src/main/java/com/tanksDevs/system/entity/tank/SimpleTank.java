@@ -4,6 +4,8 @@ import com.tanksDevs.system.entity.AbstractEntity;
 import com.tanksDevs.system.entity.Colliding;
 import com.tanksDevs.system.entity.Direction;
 import com.tanksDevs.system.entity.Genre;
+import com.tanksDevs.system.entity.eagle.Eagle;
+import com.tanksDevs.system.entity.eagle.TankBase;
 import com.tanksDevs.system.entity.hitBox.BasicHitBox;
 import com.tanksDevs.system.entity.hitBox.HitBox;
 
@@ -16,14 +18,16 @@ public class SimpleTank extends AbstractEntity implements Tank {
     private Direction direction;
     private final Genre genre = Genre.TANK;
     private boolean isOccupied;
+    private final TankBase tankBase;
 
-    public SimpleTank(int id, double x, double y, double size, Direction direction) {
+    public SimpleTank(int id, double x, double y, double size, Direction direction, TankBase tankBase) {
         super(id, x, y, size);
         this.direction = direction;
         this.speed = 3.0;
         this.hp = 5;
         this.destroyed = false;
         this.hitBox = new BasicHitBox(x, y, size);
+        this.tankBase = tankBase;
     }
 
     public SimpleTank(TankPojo tankPojo) {
@@ -34,6 +38,7 @@ public class SimpleTank extends AbstractEntity implements Tank {
         this.destroyed = (hp <= 0);
         this.isOccupied = tankPojo.getIsOccupied();
         this.hitBox = new BasicHitBox(tankPojo.getX(), tankPojo.getY(), tankPojo.getSize());
+        this.tankBase = new Eagle(tankPojo.getTankBasePojo());
     }
   
     @Override
@@ -110,6 +115,11 @@ public class SimpleTank extends AbstractEntity implements Tank {
     @Override
     public void markAsOccupied() {
         this.isOccupied = true;
+    }
+
+    @Override
+    public TankBase getBase() {
+        return this.tankBase;
     }
 
     @Override

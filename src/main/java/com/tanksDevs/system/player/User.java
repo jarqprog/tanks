@@ -3,7 +3,7 @@ package com.tanksDevs.system.player;
 import com.tanksDevs.system.entity.tank.SimpleTank;
 import com.tanksDevs.system.entity.tank.Tank;
 
-public class User implements Player{
+public class User implements Player {
     private Tank tank;
     private String name;
     private int score;
