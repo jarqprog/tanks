@@ -17,9 +17,8 @@ public class SimpleBullet extends AbstractEntity implements Bullet {
 
     }
 
-    public SimpleBullet(double x, double y, Direction direction) {
-        this.x = x;
-        this.y = y;
+    public SimpleBullet(int id, double x, double y, double size, Direction direction) {
+        super(id, x, y, size);
         this.direction = direction;
         this.speed = 1.0;
     }
@@ -49,6 +48,7 @@ public class SimpleBullet extends AbstractEntity implements Bullet {
     @Override
     public double getSpeed() {
         return speed;
+    }
 
     public void decrementHp(int hitPoints) {
         hp -= hitPoints;
@@ -77,16 +77,16 @@ public class SimpleBullet extends AbstractEntity implements Bullet {
         this.direction = direction;
         switch (direction) {
             case NORTH:
-                y -= speed;
+                setY( getY() - speed);
                 break;
             case SOUTH:
-                y += speed;
+                setY( getY() + speed);
                 break;
             case EAST:
-                x += speed;
+                setX( getX() + speed);
                 break;
             case WEST:
-                x -= speed;
+                setX( getX() - speed);
                 break;
         }
     }
