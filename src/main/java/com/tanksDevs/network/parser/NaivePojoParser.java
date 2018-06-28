@@ -128,6 +128,7 @@ public class NaivePojoParser implements PojoParser {
                 tankPojo.setIsOccupied(tank.hasPlayer());
                 tankPojo.setDirection(tank.getDirection());
                 tankPojo.setSpeed(tank.getSpeed());
+                tankPojo.setTankBasePojo(parse(tank.getBase()));
                 pojo = (P) tankPojo;
                 break;
             case BRICKWALL:
