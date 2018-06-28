@@ -38,12 +38,12 @@ public class SimpleTank extends AbstractEntity implements Tank {
   
     @Override
     public double getSpeed() {
-        return 0;
+        return speed;
     }
 
     @Override
     public Direction getDirection() {
-        return null;
+        return direction;
     }
 
     @Override
