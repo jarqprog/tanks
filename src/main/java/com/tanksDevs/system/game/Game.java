@@ -9,6 +9,9 @@ import java.util.Set;
 
 public interface Game {
 
+    int getWidth();
+    int getHeight();
+    int getTileSize();
     Board getBoard();
     Set<Colliding> getCollidings();
     Set<Tank> getTanks();
