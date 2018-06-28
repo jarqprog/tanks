@@ -145,7 +145,7 @@ public class KryoClient implements GameClient {
 
     }
 
-    private void executeGameLoop() {
+    private synchronized void executeGameLoop() {
 
         System.out.println("Client game loop");
 
