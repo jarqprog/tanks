@@ -8,6 +8,7 @@ import com.tanksDevs.system.entity.Colliding;
 import com.tanksDevs.system.entity.Direction;
 import com.tanksDevs.system.entity.Genre;
 import com.tanksDevs.system.entity.bullet.SimpleBullet;
+import com.tanksDevs.system.entity.eagle.EaglePojo;
 import com.tanksDevs.system.entity.forest.SimpleForest;
 import com.tanksDevs.system.entity.forest.SimpleForestPojo;
 import com.tanksDevs.system.entity.hitBox.BasicHitBox;
@@ -56,6 +57,7 @@ public class SimpleKryoRegister implements KryoRegister {
         kryo.register(TankState.class);
         kryo.register(UserInput.class);
         kryo.register(ServerState.class);
+        kryo.register(EaglePojo.class);
 
     }
 }

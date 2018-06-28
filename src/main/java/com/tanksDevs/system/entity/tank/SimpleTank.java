@@ -18,7 +18,7 @@ public class SimpleTank extends AbstractEntity implements Tank {
     private Direction direction;
     private final Genre genre = Genre.TANK;
     private boolean isOccupied;
-    private final TankBase tankBase;
+    private TankBase tankBase;
 
     public SimpleTank(int id, double x, double y, double size, Direction direction, TankBase tankBase) {
         super(id, x, y, size);
@@ -27,7 +27,7 @@ public class SimpleTank extends AbstractEntity implements Tank {
         this.hp = 5;
         this.destroyed = false;
         this.hitBox = new BasicHitBox(x, y, size);
-        this.tankBase = tankBase;
+//        this.tankBase = tankBase;
     }
 
     public SimpleTank(TankPojo tankPojo) {
@@ -38,7 +38,7 @@ public class SimpleTank extends AbstractEntity implements Tank {
         this.destroyed = (hp <= 0);
         this.isOccupied = tankPojo.getIsOccupied();
         this.hitBox = new BasicHitBox(tankPojo.getX(), tankPojo.getY(), tankPojo.getSize());
-        this.tankBase = new Eagle(tankPojo.getTankBasePojo());
+//        this.tankBase = new Eagle(tankPojo.getTankBasePojo());
     }
   
     @Override
