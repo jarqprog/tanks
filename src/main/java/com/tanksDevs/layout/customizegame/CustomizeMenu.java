@@ -19,11 +19,13 @@ public class CustomizeMenu {
 
     private StackPane start;
     private StackPane join;
+    private StackPane create;
     private StackPane back;
 
     private static final String START_TEXT = "Start";
     private static final String JOIN_TEXT = "Join";
     private static final String BACK_TEXT = "Back";
+    private static final String CREATE_TEXT = "Create";
 
     private static final double INITIAL_ALPHA = 1.0;
     private static final double FINAL_ALPHA = 0.0;
@@ -42,20 +44,35 @@ public class CustomizeMenu {
         HBox menu = new HBox();
         createButtons();
         menu.setSpacing(GAP);
-        menu.getChildren().addAll(start, join, back);
+        menu.getChildren().addAll(start, join, create, back);
         return menu;
     }
 
     private void createButtons() {
         ButtonMaker start = new ButtonMaker(START_TEXT);
         ButtonMaker join = new ButtonMaker(JOIN_TEXT);
+        ButtonMaker create = new ButtonMaker(CREATE_TEXT);
         ButtonMaker back = new ButtonMaker(BACK_TEXT);
 
-        assignButtonsFromButtonMakers(start, join, back);
+        assignButtonsFromButtonMakers(start, join, create, back);
 
         createStartListener(start);
         createJoinListener(join);
+        createCreateListener(create);
         createBackListener(back);
+    }
+
+    private void createCreateListener(ButtonMaker create) {
+        this.create.setOnMousePressed(event -> {
+            if (app.isAllowListeners()) {
+                Music.play(Track.EXPLOSION, VOLUME);
+                create.changeStateDown();
+                animateScreenSwitch(event1 -> {
+                    app.setAllowListeners(true);
+                    //LOGIC FOR CREATE
+                });
+            }
+        });
     }
 
     private void createBackListener(ButtonMaker back) {
@@ -98,10 +115,11 @@ public class CustomizeMenu {
         });
     }
 
-    private void assignButtonsFromButtonMakers(ButtonMaker start, ButtonMaker join, ButtonMaker back) {
+    private void assignButtonsFromButtonMakers(ButtonMaker start, ButtonMaker join, ButtonMaker create, ButtonMaker back) {
         this.start = start.getButton();
         this.join = join.getButton();
         this.back = back.getButton();
+        this.create = create.getButton();
     }
 
     private void animateScreenSwitch(EventHandler<ActionEvent> event) {
