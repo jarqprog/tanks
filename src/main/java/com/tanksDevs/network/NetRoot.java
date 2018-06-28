@@ -46,8 +46,8 @@ public class NetRoot implements Root {
         int portUDP = 9900;
         int largeTimeWindow = 500;
         int shortTimeWindow = 12;
-        String ipAddress = "192.168.11.70"; // Adam
-//        String ipAddress = "192.168.10.244"; // Jarek
+//        String ipAddress = "192.168.11.70"; // Adam
+        String ipAddress = "192.168.10.244"; // Jarek
 //        String ipAddress = "192.168.10.242"; // Michal
 
         String userChoice = "";
@@ -90,6 +90,7 @@ public class NetRoot implements Root {
 
             ServerSupplier serverSupplier = KryoServerSupplier
                     .create(portTCP, portUDP, largeTimeWindow, shortTimeWindow, ipAddress, parser, kryoRegister);
+
             serverSupplier.setGame(game);
 
             GameServer gameServer = KryoServer.createKryoServer(serverSupplier);

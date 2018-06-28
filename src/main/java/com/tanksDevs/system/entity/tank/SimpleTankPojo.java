@@ -13,9 +13,6 @@ public class SimpleTankPojo extends AbstractEntityPojo implements TankPojo {
     private TankBasePojo tankBasePojo;
     private int playerOwner;
 
-    public SimpleTankPojo() {
-    }
-
     @Override
     public Direction getDirection() {
         return direction;

@@ -4,6 +4,5 @@ import com.tanksDevs.system.pojo.EntityPojo;
 
 public interface SolidWallPojo extends EntityPojo {
 
-
     //marker
 }
