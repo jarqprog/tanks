@@ -107,7 +107,7 @@ public class KryoServer implements GameServer {
 
         while ( notReady ) {
 
-            if ( game != null && game.getPlayers().size() > 0 ) {  // todo size() == 2 - można pobrać ilość czołgów z Game i porównać, czy już są wszyscy gracze
+            if ( game != null && game.getPlayers().size() == game.getTanks().size()) {
                 serverIn.stopPreparation();
                 notReady = false;
             }
